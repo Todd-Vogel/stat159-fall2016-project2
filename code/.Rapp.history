@@ -1,0 +1,18 @@
+credit <- read.csv("../data/Credit.csv")
+temp_credit <- model.matrix(Balance ~ ., data = credit)
+temp_credit
+new_credit <- cbind(temp_credit[ ,-1], Balance = Balance)
+new_credit <- cbind(temp_credit[ ,c(-1, -2)], credit$Balance)
+new_credit
+new_credit <- cbind(temp_credit[ ,c(-1, -2)], Balance = credit$Balance)
+new_credit
+write.csv(scaled_credit, file = "../scaled-credit.csv")
+scaled_credit <- scale(new_credit, center = TRUE, scale = TRUE)
+write.csv(scaled_credit, file = "../scaled-credit.csv")
+write.csv(scaled_credit, file = "../data/scaled-credit.csv")
+scaled_credit <- read.csv("../data/scaled-credit.csv")
+set.seed(1)
+training_data <- sample(scaled_credit, 300)
+training_data <- sample_n(scaled_credit, 300)
+training_data <- scaled_credit[sample(nrow(scaled_credit), 300),]
+training_data
