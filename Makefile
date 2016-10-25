@@ -1,4 +1,7 @@
-data/training_data.csv: code/data-separation.R data/scaled-credit.csv
+data/training-data.csv: code/data-separation.R data/scaled-credit.csv
+	cd code; Rscript data-separation.R
+
+data/test-data.csv: code/data-separation.R data/scaled-credit.csv
 	cd code; Rscript data-separation.R
 
 data/scaled-credit.csv: code/Data-Cleaning.R data/Credit.csv
