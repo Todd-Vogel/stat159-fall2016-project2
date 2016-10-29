@@ -16,3 +16,29 @@ training_data <- sample(scaled_credit, 300)
 training_data <- sample_n(scaled_credit, 300)
 training_data <- scaled_credit[sample(nrow(scaled_credit), 300),]
 training_data
+scaled_credit <- read.csv("../data/scaled-credit.csv")
+scaled_credit <- read.csv("../data/scaled-credit.csv")#
+#
+set.seed(1)#
+training_data <- scaled_credit[sample(nrow(scaled_credit), 300),]
+training_data
+test_data <- scaled_credit[-sample(nrow(scaled_credit), 300),]
+test_data
+training_data$X
+order(training_data$X)
+sort(training_data$X)
+sort(test_data$X)
+set.seed(1)#
+training_data <- scaled_credit[sample(nrow(scaled_credit), 300),]#
+sort(training_data$X)#
+#
+set.seed(1)#
+test_data <- scaled_credit[-sample(nrow(scaled_credit), 300),]#
+sort(test_data$X)
+colnames(training_data)
+training_data <- training_data[,-1]
+colnames(training_data)
+colnames(test_data)
+test_data <- test_data[,-1]
+write.csv(training_data, file = "../data/training-data.csv")
+write.csv(test_data, file = "../data/test_data.csv")
