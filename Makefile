@@ -49,6 +49,9 @@ session-info.txt:
 
 data: #use variables here to call everthing 
 
+data/ANOVA_output.txt: code/scripts/eda_script.R data/Credit.csv
+	cd code/scripts; Rscript eda_script.R
+
 data/eda_qualitative_output.txt: code/scripts/eda_script.R data/Credit.csv
 	cd code/scripts; Rscript eda_script.R
 
