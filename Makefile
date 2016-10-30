@@ -1,3 +1,34 @@
+#Phony targets
+.PHONY: all
+.PHONY: tests
+.PHONY: eda
+.PHONY: ols
+.PHONY: ridge
+.PHONY: lasso
+.PHONY: pcr
+.PHONY: plsr
+.PHONY: regressions
+.PHONY: report
+.PHONY: slides
+.PHONY: session
+.PHONY: clean
+
+
+
+regressions:
+    make ols
+    make ridge
+    make lasso
+    make pcr
+    make plsr
+
+# 	Your Makefile should include:
+# – declaration of variables
+# – use of Make automatic variables
+# – comments for rules, targets or dependencies that need further description – all required phony targets
+
+
+
 data/eda_qualitative_output.txt: code/scripts/eda_script.R data/Credit.csv
 	cd code/scripts; Rscript eda_script.R
 
