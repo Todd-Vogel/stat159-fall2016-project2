@@ -1,16 +1,19 @@
-data/eda-output.txt: code/scripts/eda-script.R data/Credit.csv
-	cd code/scripts; Rscript eda-script.R
+data/eda_qualitative_output.txt: code/scripts/eda_script.R data/Credit.csv
+	cd code/scripts; Rscript eda_script.R
 
-data/correlation-matrix.RData: code/scripts/eda-script.R data/Credit.csv
-	cd code/scripts; Rscript eda-script.R
+data/eda_quantitative_output.txt: code/scripts/eda_script.R data/Credit.csv
+	cd code/scripts; Rscript eda_script.R
 
-data/training-data.csv: code/data-separation.R data/scaled-credit.csv
-	cd code; Rscript data-separation.R
+data/correlation_matrix.RData: code/scripts/eda_script.R data/Credit.csv
+	cd code/scripts; Rscript eda_script.R
 
-data/test-data.csv: code/data-separation.R data/scaled-credit.csv
-	cd code; Rscript data-separation.R
+data/training_data.csv: code/data_separation.R data/scaled_credit.csv
+	cd code; Rscript data_separation.R
 
-data/scaled-credit.csv: code/Data-Cleaning.R data/Credit.csv
+data/test_data.csv: code/data_separation.R data/scaled_credit.csv
+	cd code; Rscript data_separation.R
+
+data/scaled_credit.csv: code/Data_Cleaning.R data/Credit.csv
 	cd code; Rscript Data-Cleaning.R
 
 data/Credit.csv:
