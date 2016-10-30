@@ -39,8 +39,10 @@ response = test_set$Balance
 test_set <- test_set[,-1]
 test_set <- test_set[,-12]
 test_predictors = as.matrix(test_set)
-#maybe remove balance 
 
 test_ridge <- predict(cross_v, newx = test_predictors, s = "lambda.min", type="response")
 
 
+source("code/functions/mse_function.R")
+#use todds method as a test for MSE
+mse(test_ridge, response)
