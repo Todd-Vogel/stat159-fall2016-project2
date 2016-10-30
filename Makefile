@@ -27,7 +27,27 @@ regressions:
 # – use of Make automatic variables
 # – comments for rules, targets or dependencies that need further description – all required phony targets
 
+#creating the paper
+paper: paper.html
 
+paper.md:
+	cd paper/sections && pandoc -f markdown -t markdown -o ../paper.md *.md
+
+paper.html: paper.md
+	cd paper/sections && pandoc -f markdown -t html -o ../paper.html *.md
+
+#cleaning the reports
+clean:
+	rm paper/paper.html paper/paper.md
+
+tests:
+	cd code; Rscript test-that.R
+
+session-info.txt:
+	cd code/scripts; Rscript session-info-script.R
+
+
+data: #use variables here to call everthing 
 
 data/eda_qualitative_output.txt: code/scripts/eda_script.R data/Credit.csv
 	cd code/scripts; Rscript eda_script.R
