@@ -43,73 +43,100 @@ colnames(variable_sd) <- "SD"
 dependent.matrix <- credit[,c(2,3,4,5,6,7)]
 cor_matrix <- as.matrix(cor(dependent.matrix))
 
-sink("../../data/eda-output.txt")
+sink("../../data/eda_quantitative_output.txt")
 quantitative_summary
 variable_IQR
 variable_sd
 cor_matrix
 sink()
 
-save(cor_matrix, file = "../../data/correlation-matrix.RData")
+save(cor_matrix, file = "../../data/correlation_matrix.RData")
 
-png('../../images/scatterplot-matrix.png')
+png('../../images/scatterplot_matrix.png')
 pairs(dependent.matrix)
 dev.off()
 
 
-png('../../images/histogram-income.png')
+png('../../images/histogram_income.png')
 hist(Income)
 dev.off()
 
-png('../../images/histogram-limit.png')
+png('../../images/histogram_limit.png')
 hist(Limit)
 dev.off()
 
-png('../../images/histogram-rating.png')
+png('../../images/histogram_rating.png')
 hist(Rating)
 dev.off()
 
-png('../../images/histogram-cards.png')
+png('../../images/histogram_cards.png')
 hist(Cards)
 dev.off()
 
-png('../../images/histogram-age.png')
+png('../../images/histogram_age.png')
 hist(Age)
 dev.off()
 
-png('../../images/histogram-education.png')
+png('../../images/histogram_education.png')
 hist(Education)
 dev.off()
 
-png('../../images/histogram-balance.png')
+png('../../images/histogram_balance.png')
 hist(Balance)
 dev.off()
 
 
-png('../../images/boxplot-income')
+png('../../images/boxplot_income')
 boxplot(Income)
 dev.off()
 
-png('../../images/boxplot-limit')
+png('../../images/boxplot_limit')
 boxplot(Limit)
 dev.off()
 
-png('../../images/boxplot-rating')
+png('../../images/boxplot_rating')
 boxplot(Rating)
 dev.off()
 
-png('../../images/boxplot-cards')
+png('../../images/boxplot_cards')
 boxplot(Cards)
 dev.off()
 
-png('../../images/boxplot-age')
+png('../../images/boxplot_age')
 boxplot(Age)
 dev.off()
 
-png('../../images/boxplot-education')
+png('../../images/boxplot_education')
 boxplot(Education)
 dev.off()
 
-png('../../images/boxplot-Balance')
+png('../../images/boxplot_Balance')
 boxplot(Balance)
 dev.off()
+
+library('plyr')
+
+colnames(credit)
+qual_variables <- credit[,c(8,9,10,11)]
+gender_freq <- count(qual_variables$Gender)
+gender_freq$'relative frequency' <- round(gender_freq$freq/sum(gender_freq$freq), 2)
+colnames(gender_freq)[1] <- "Gender"
+
+student_freq <- count(qual_variables$Student)
+student_freq$'relative frequency' <- round(student_freq$freq/sum(student_freq$freq), 2)
+colnames(student_freq)[1] <- "Student"
+
+married_freq <- count(qual_variables$Married)
+married_freq$'relative frequency' <- round(married_freq$freq/sum(married_freq$freq), 2)
+colnames(married_freq)[1] <- "Married"
+
+ethnicity_freq <- count(qual_variables$Ethnicity)
+ethnicity_freq$'relative frequency' <- round(ethnicity_freq$freq/sum(ethnicity_freq$freq), 3)
+colnames(ethnicity_freq)[1] <- "Ethnicity"
+
+sink("../../data/eda_qualitative_output.txt")
+gender_freq
+student_freq
+married_freq
+ethnicity_freq
+sink()

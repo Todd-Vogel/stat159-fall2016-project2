@@ -1,11 +1,11 @@
-scaled_credit <- read.csv("../../data/scaled-credit.csv")
+scaled_credit <- read.csv("../../data/scaled_credit.csv")
 
 set.seed(1)
 training_data <- scaled_credit[sample(nrow(scaled_credit), 300),]
 sort(training_data$X)
 training_data <- training_data[,-1]
 
-write.csv(training_data, file = "../../data/training-data.csv")
+write.csv(training_data, file = "../../data/training_data.csv")
 
 set.seed(1)
 test_data <- scaled_credit[-sample(nrow(scaled_credit), 300),]
