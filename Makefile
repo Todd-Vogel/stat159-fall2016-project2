@@ -1,3 +1,20 @@
+.PHONY: all
+.PHONY: tests
+.PHONY: eda
+.PHONY: ols
+.PHONY: ridge
+.PHONY: lasso
+.PHONY: pcr
+.PHONY: plsr
+.PHONY: regressions
+.PHONY: report
+.PHONY: slides
+.PHONY: session
+.PHONY: clean
+
+
+
+
 data/eda_qualitative_output.txt: code/scripts/eda_script.R data/Credit.csv
 	cd code/scripts; Rscript eda_script.R
 
