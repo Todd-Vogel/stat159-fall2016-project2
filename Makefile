@@ -1,3 +1,4 @@
+#Phony targets
 .PHONY: all
 .PHONY: tests
 .PHONY: eda
@@ -12,6 +13,19 @@
 .PHONY: session
 .PHONY: clean
 
+
+
+regressions:
+    make ols
+    make ridge
+    make lasso
+    make pcr
+    make plsr
+
+# 	Your Makefile should include:
+# – declaration of variables
+# – use of Make automatic variables
+# – comments for rules, targets or dependencies that need further description – all required phony targets
 
 
 
