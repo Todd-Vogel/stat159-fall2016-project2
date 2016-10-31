@@ -1,0 +1,157 @@
+credit <- read.csv('../../data/Credit.csv')#
+#
+Balance <- credit$Balance#
+Income <- credit$Income#
+Limit <- credit$Limit#
+Rating <- credit$Rating#
+Cards <- credit$Cards#
+Age <- credit$Age#
+Education <- credit$Education
+dependent.matrix <- credit[,c(2,3,4,5,6,7)]
+png('../../images/scatterplot_matrix.png')#
+pairs(dependent.matrix)#
+dev.off()#
+png('../../images/histogram_income.png')#
+hist(Income)#
+dev.off()#
+#
+png('../../images/histogram_limit.png')#
+hist(Limit)#
+dev.off()#
+#
+png('../../images/histogram_rating.png')#
+hist(Rating)#
+dev.off()#
+#
+png('../../images/histogram_cards.png')#
+hist(Cards)#
+dev.off()#
+#
+png('../../images/histogram_age.png')#
+hist(Age)#
+dev.off()#
+#
+png('../../images/histogram_education.png')#
+hist(Education)#
+dev.off()#
+#
+png('../../images/histogram_balance.png')#
+hist(Balance)#
+dev.off()#
+png('../../images/boxplot_income')#
+boxplot(Income)#
+dev.off()#
+#
+png('../../images/boxplot_limit')#
+boxplot(Limit)#
+dev.off()#
+#
+png('../../images/boxplot_rating')#
+boxplot(Rating)#
+dev.off()#
+#
+png('../../images/boxplot_cards')#
+boxplot(Cards)#
+dev.off()#
+#
+png('../../images/boxplot_age')#
+boxplot(Age)#
+dev.off()#
+#
+png('../../images/boxplot_education')#
+boxplot(Education)#
+dev.off()#
+#
+png('../../images/boxplot_Balance')#
+boxplot(Balance)#
+dev.off()
+barplot(gender_freq$freq)
+library('plyr')#
+#
+colnames(credit)#
+qual_variables <- credit[,c(8,9,10,11)]#
+gender_freq <- count(qual_variables$Gender)#
+gender_freq$'relative frequency' <- round(gender_freq$freq/sum(gender_freq$freq), 2)#
+colnames(gender_freq)[1] <- "Gender"#
+#
+student_freq <- count(qual_variables$Student)#
+student_freq$'relative frequency' <- round(student_freq$freq/sum(student_freq$freq), 2)#
+colnames(student_freq)[1] <- "Student"#
+#
+married_freq <- count(qual_variables$Married)#
+married_freq$'relative frequency' <- round(married_freq$freq/sum(married_freq$freq), 2)#
+colnames(married_freq)[1] <- "Married"#
+#
+ethnicity_freq <- count(qual_variables$Ethnicity)#
+ethnicity_freq$'relative frequency' <- round(ethnicity_freq$freq/sum(ethnicity_freq$freq), 3)#
+colnames(ethnicity_freq)[1] <- "Ethnicity"#
+#
+sink("../../data/eda_qualitative_output.txt")#
+gender_freq#
+student_freq#
+married_freq#
+ethnicity_freq#
+sink()
+barplot(gender_freq$freq)
+gender_barplot
+gender_barplot <- barplot(gender_freq$freq)
+gender_barplot
+barplot(gender_freq$freq, main = "Gender Frequencies")
+c("Male", "Female"))
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))
+png('../../images/gender_barplot')#
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))#
+dev.off()
+student_freq
+gender_freq
+barplot(student_freq$freq, main = "Student Frequencies", names.arg = c("No", "Yes"))
+married_freq
+ethnicity_freq
+barplot(ethnicity_freq$freq, main = "Ethnicity Frequencies", names.arg = c("African American", "Asian", "Caucasian"))
+png('../../images/gender_barplot')#
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))#
+dev.off()#
+#
+png('../../images/student_barplot')#
+barplot(student_freq$freq, main = "Student Frequencies", names.arg = c("No", "Yes"))#
+dev.off()#
+#
+png('../../images/married_barplot')#
+barplot(married_freq$freq, main = "Married Frequencies", names.arg = c("No", "Yes"))#
+dev.off()#
+#
+png('../../images/ethnicity_barplot')#
+barplot(ethnicity_freq$freq, main = "Ethnicity Frequencies", names.arg = c("African American", "Asian", "Caucasian"))#
+dev.off()
+png('../../images/barplot_gender')#
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))#
+dev.off()#
+#
+png('../../images/barplot_student')#
+barplot(student_freq$freq, main = "Student Frequencies", names.arg = c("No", "Yes"))#
+dev.off()#
+#
+png('../../images/barplot_married')#
+barplot(married_freq$freq, main = "Married Frequencies", names.arg = c("No", "Yes"))#
+dev.off()#
+#
+png('../../images/barplot_ethnicity')#
+barplot(ethnicity_freq$freq, main = "Ethnicity Frequencies", names.arg = c("African American", "Asian", "Caucasian"))#
+dev.off()
+colnames(credit)
+?aov()
+credit[, c(8,9,10,11,12)]
+colnames(qual_credit)
+qual_credit <- credit[, c(8,9,10,11,12)]
+colnames(qual_credit)
+aov(Balance ~ Gender + Student + Married + Ethnicity, data = qual_credit)
+anova_analysis <- aov(Balance ~ Gender + Student + Married + Ethnicity, data = qual_credit)
+anova_analysis
+sink("../../data/ANOVA_output.txt")#
+anova_analysis#
+sink()
+bplot.xy(credit$Balance, credit$Gender )
+install.packages("fields")
+library("fields")
+bplot.xy(credit$Balance, credit$Gender)
