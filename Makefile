@@ -16,11 +16,23 @@
 
 
 regressions:
-    make ols
-    make ridge
-    make lasso
-    make pcr
-    make plsr
+	make ols
+	make ridge
+	make lasso
+	make pcr
+	make plsr
+
+ols:
+
+ridge:
+
+lasso:
+
+pcr:
+
+plsr:
+
+
 
 # 	Your Makefile should include:
 # – declaration of variables
@@ -40,14 +52,17 @@ paper.html: paper.md
 clean:
 	rm paper/paper.html paper/paper.md
 
-tests:
-	cd code; Rscript test-that.R
+test:
+	cd code/tests; Rscript -e 'library(testthat); test_file("all_tests.R")'
+
+
+
 
 session-info.txt:
 	cd code/scripts; Rscript session-info-script.R
 
 
-data: #use variables here to call everthing 
+#data: #use variables here to call everthing
 
 data/ANOVA_output.txt: code/scripts/eda_script.R data/Credit.csv
 	cd code/scripts; Rscript eda_script.R
