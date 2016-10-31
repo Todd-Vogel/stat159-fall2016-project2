@@ -113,3 +113,7 @@ dev.off()
 png('../../images/boxplot-Balance')
 boxplot(Balance)
 dev.off()
+
+
+library(ggplot2)
+ggplot(credit, aes(x = credit$Gender, y = credit$Balance)) + geom_boxplot()
