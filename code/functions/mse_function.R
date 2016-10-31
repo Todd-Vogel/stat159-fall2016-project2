@@ -1,4 +1,4 @@
-mse <- function(x,y) {
+MSE <- function(x,y) {
   if (length(x) == length(y)) {
     error = 0
     for (i in 1:length(x)) {
