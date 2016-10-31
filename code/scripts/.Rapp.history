@@ -1,0 +1,293 @@
+credit <- read.csv('../../data/Credit.csv')#
+#
+Balance <- credit$Balance#
+Income <- credit$Income#
+Limit <- credit$Limit#
+Rating <- credit$Rating#
+Cards <- credit$Cards#
+Age <- credit$Age#
+Education <- credit$Education
+dependent.matrix <- credit[,c(2,3,4,5,6,7)]
+png('../../images/scatterplot_matrix.png')#
+pairs(dependent.matrix)#
+dev.off()#
+png('../../images/histogram_income.png')#
+hist(Income)#
+dev.off()#
+#
+png('../../images/histogram_limit.png')#
+hist(Limit)#
+dev.off()#
+#
+png('../../images/histogram_rating.png')#
+hist(Rating)#
+dev.off()#
+#
+png('../../images/histogram_cards.png')#
+hist(Cards)#
+dev.off()#
+#
+png('../../images/histogram_age.png')#
+hist(Age)#
+dev.off()#
+#
+png('../../images/histogram_education.png')#
+hist(Education)#
+dev.off()#
+#
+png('../../images/histogram_balance.png')#
+hist(Balance)#
+dev.off()#
+png('../../images/boxplot_income')#
+boxplot(Income)#
+dev.off()#
+#
+png('../../images/boxplot_limit')#
+boxplot(Limit)#
+dev.off()#
+#
+png('../../images/boxplot_rating')#
+boxplot(Rating)#
+dev.off()#
+#
+png('../../images/boxplot_cards')#
+boxplot(Cards)#
+dev.off()#
+#
+png('../../images/boxplot_age')#
+boxplot(Age)#
+dev.off()#
+#
+png('../../images/boxplot_education')#
+boxplot(Education)#
+dev.off()#
+#
+png('../../images/boxplot_Balance')#
+boxplot(Balance)#
+dev.off()
+barplot(gender_freq$freq)
+library('plyr')#
+#
+colnames(credit)#
+qual_variables <- credit[,c(8,9,10,11)]#
+gender_freq <- count(qual_variables$Gender)#
+gender_freq$'relative frequency' <- round(gender_freq$freq/sum(gender_freq$freq), 2)#
+colnames(gender_freq)[1] <- "Gender"#
+#
+student_freq <- count(qual_variables$Student)#
+student_freq$'relative frequency' <- round(student_freq$freq/sum(student_freq$freq), 2)#
+colnames(student_freq)[1] <- "Student"#
+#
+married_freq <- count(qual_variables$Married)#
+married_freq$'relative frequency' <- round(married_freq$freq/sum(married_freq$freq), 2)#
+colnames(married_freq)[1] <- "Married"#
+#
+ethnicity_freq <- count(qual_variables$Ethnicity)#
+ethnicity_freq$'relative frequency' <- round(ethnicity_freq$freq/sum(ethnicity_freq$freq), 3)#
+colnames(ethnicity_freq)[1] <- "Ethnicity"#
+#
+sink("../../data/eda_qualitative_output.txt")#
+gender_freq#
+student_freq#
+married_freq#
+ethnicity_freq#
+sink()
+barplot(gender_freq$freq)
+gender_barplot
+gender_barplot <- barplot(gender_freq$freq)
+gender_barplot
+barplot(gender_freq$freq, main = "Gender Frequencies")
+c("Male", "Female"))
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))
+png('../../images/gender_barplot')#
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))#
+dev.off()
+student_freq
+gender_freq
+barplot(student_freq$freq, main = "Student Frequencies", names.arg = c("No", "Yes"))
+married_freq
+ethnicity_freq
+barplot(ethnicity_freq$freq, main = "Ethnicity Frequencies", names.arg = c("African American", "Asian", "Caucasian"))
+png('../../images/gender_barplot')#
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))#
+dev.off()#
+#
+png('../../images/student_barplot')#
+barplot(student_freq$freq, main = "Student Frequencies", names.arg = c("No", "Yes"))#
+dev.off()#
+#
+png('../../images/married_barplot')#
+barplot(married_freq$freq, main = "Married Frequencies", names.arg = c("No", "Yes"))#
+dev.off()#
+#
+png('../../images/ethnicity_barplot')#
+barplot(ethnicity_freq$freq, main = "Ethnicity Frequencies", names.arg = c("African American", "Asian", "Caucasian"))#
+dev.off()
+png('../../images/barplot_gender')#
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))#
+dev.off()#
+#
+png('../../images/barplot_student')#
+barplot(student_freq$freq, main = "Student Frequencies", names.arg = c("No", "Yes"))#
+dev.off()#
+#
+png('../../images/barplot_married')#
+barplot(married_freq$freq, main = "Married Frequencies", names.arg = c("No", "Yes"))#
+dev.off()#
+#
+png('../../images/barplot_ethnicity')#
+barplot(ethnicity_freq$freq, main = "Ethnicity Frequencies", names.arg = c("African American", "Asian", "Caucasian"))#
+dev.off()
+colnames(credit)
+?aov()
+credit[, c(8,9,10,11,12)]
+colnames(qual_credit)
+qual_credit <- credit[, c(8,9,10,11,12)]
+colnames(qual_credit)
+aov(Balance ~ Gender + Student + Married + Ethnicity, data = qual_credit)
+anova_analysis <- aov(Balance ~ Gender + Student + Married + Ethnicity, data = qual_credit)
+anova_analysis
+sink("../../data/ANOVA_output.txt")#
+anova_analysis#
+sink()
+bplot.xy(credit$Balance, credit$Gender )
+install.packages("fields")
+library("fields")
+bplot.xy(credit$Balance, credit$Gender)
+training_data <- read.csv("../../data/training_data.csv")
+colnames(training_data)
+training_data[,-1]
+training_data <- training_data[,-1]
+colnames(training_data)
+?cv.glmnet()
+install.packages("glmnet")
+library("glmnet")
+?cv.glmnet()
+training_data$Balance
+response <- training_data$Balance
+colnames(training_data)
+training_data[,-12]
+response <- training_data$Balance
+response <- as.matrix(response)
+response <- training_data$Balance#
+response <- as.matrix(response)#
+predictors <- training_data[,-12]#
+predictors <- as.matrix(predictors)
+cv.glmnet(predictors, response, lambda = grid)
+grid <- 10^seq(10, -2, length = 100)
+cv.glmnet(predictors, response, lambda = grid)
+cv.glmnet(predictors, response, lambda = grid, intercept = FALSE, standardize = FALSE)
+cv.glmnet(predictors, response, lambda = grid, intercept = FALSE, standardize = FALSE, family = "binomial", alpha = 1)
+cv.glmnet(predictors, response, lambda = grid, intercept = FALSE, standardize = FALSE, family = "binomial")
+cv.glmnet(predictors, response, lambda = grid, intercept = FALSE, standardize = FALSE, family = "binomial")
+glmnet(predictors, response, lambda = grid, intercept = FALSE, standardize = FALSE, family = "binomial", alpha = 1)
+glmnet(predictors, response, family = "binomial", alpha = 1)
+install.packages("lars")
+library("lars")
+?lars()
+lars(predictors, response, type = "lasso")
+lasso_model <- lars(predictors, response, type = "lasso")
+cv.glmnet(predictors, response, lambda = grid, intercept = FALSE, standardize = FALSE)
+x <- cv.glmnet(predictors, response, lambda = grid, intercept = FALSE, standardize = FALSE)
+x$lambda.min
+x <- cv.glmnet(predictors, response, lambda = grid, alpha = 1, intercept = FALSE, standardize = FALSE)
+x$lambda.min
+lm.lasso <- cv.glmnet(predictors, response, lambda = grid, alpha = 1, intercept = FALSE, standardize = FALSE)
+lm.lasso$lambda.min
+lm.lasso <- cv.glmnet(predictors, response, lambda = grid, alpha = 1, intercept = FALSE, standardize = FALSE)
+lm.lasso$lambda.min
+coef(lm.lasso, lm.lasso$lambda.min)
+save(coef(lm.lasso, lm.lasso$lambda.min), file = "../../data/lasso_model.RData"
+save(coef(lm.lasso, lm.lasso$lambda.min), file = "../../data/lasso_model.RData")
+lm.lasso <- cv.glmnet(predictors, response, lambda = grid, alpha = 1, intercept = FALSE, standardize = FALSE)
+save(coef(lm.lasso, lm.lasso$lambda.min), file = "../../data/lasso_model.RData")
+save(bestmodel_lasso, file = "../../data/lasso_model.RData")
+bestmodel_lasso <- coef(lm.lasso, lm.lasso$lambda.min)
+save(bestmodel_lasso, file = "../../data/lasso_model.RData")
+plot(lm.lasso)
+png("../../images/CV_errors_lasso.png")#
+plot(lm.lasso, main = "CV Errors Lasso")#
+dev.off
+png("../../images/CV_errors_lasso.png")#
+plot(lm.lasso, main = "CV Errors Lasso")#
+dev.off
+png("../../images/CV_errors_lasso.png")
+plot(lm.lasso, main = "CV Errors Lasso")
+dev.off()
+test_data <- read.csv("../../data/test_data.csv")
+test_data <- test_data[,-1]
+?predict()
+predict(bestmodel_lasso, newdata=test_data)
+predict(lm.lasso$lambda.min, newdata=test_data)
+bestmodel_lass
+estmodel_lasso
+bestmodel_lasso
+colnames(tests)
+colnames(test_data)
+test_data <- test_data[, -12]
+test_data <- as.matrix(test_data)
+predict(lm.lasso, newdata=test_data, s = "lambda.min")
+?predict()
+predict(lm.lasso, newdata=test_data, s = "lambda.min", type = "response")
+predict(lm.lasso, newdata=test_data, newx, s = "lambda.min", type = "response")
+predict(lm.lasso, newx=test_data, s = "lambda.min", type = "response")
+test_data <- read.csv("../../data/test_data.csv")#
+test_data <- test_data[,-1]#
+test_predictors <- test_data[, -12]#
+test_predictors <- as.matrix(test_predictors)#
+#
+predict(lm.lasso, newx=test_predictors, s = "lambda.min", type = "response")
+test_response <- test_data[,12]
+test_response
+predicted_response <- predict(lm.lasso, newx=test_predictors, s = "lambda.min", type = "response")
+mse(predicted_response, test_response)
+install.packages("hydroGOF ")
+install.packages("hydroGOF")
+library("hydroGOF")
+mse(predicted_response, test_response)
+length(test_response)
+length(predicted_response)
+is.vector(predicted_response)
+is.vector(test_response)
+predicted_response <- as.vector(predicted_response)
+mse(predicted_response, test_response)
+predicted_response
+lasso_mse <- mse(predicted_response, test_response)
+sink("../../data/mse_lasso.txt")#
+lasso_mse#
+sink()
+MSE <- function(x,y) {#
+  if (length(x) == length(y)) {#
+    error = 0#
+    for (i in 1:length(x)) {#
+      error = error + (y[i] - x[i])^2#
+    }#
+    return(error/length(x))#
+  } else {#
+    print("Objects must have the same length")#
+  }#
+}
+MSE(predicted_response, test_response)
+scaled_credit <- read.csv("../../data/scaled_credit.csv")
+full.lasso <- glmnet(total_predictors, total_response, lambda = lm.lasso$lambda.min, alpha = 1, intercept = FALSE, standardize = FALSE)
+scaled_credit <- read.csv("../../data/scaled_credit.csv")#
+scaled_credit <- scaled_credit[,-1]#
+total_response <- scaled_credit$Balance#
+total_response <- as.matrix(total_response)#
+total_predictors <- scaled_credit[,-12]#
+total_predictors <- as.matrix(total_predictors)
+full.lasso <- glmnet(total_predictors, total_response, lambda = lm.lasso$lambda.min, alpha = 1, intercept = FALSE, standardize = FALSE)
+full.lasso
+coef(full.lasso)
+save(full_coefficients, file = "../../data/full_coefficients_lasso.RData")
+full_coefficients <- coef(full.lasso)
+save(full_coefficients, file = "../../data/full_coefficients_lasso.RData")
+bplot.xy(credit$Gender, credit$Balance)
+library('fields')
+bplot.xy(credit$Gender, credit$Balance)
+credit <- read.csv('../../data/Credit.csv')
+bplot.xy(credit$Gender, credit$Balance)
+bplot.xy(factor(credit$Gender), credit$Balance)
+factor(credit$Gender)
+credit$Gender
+bplot.xy(credit$Gender, credit$Balance)

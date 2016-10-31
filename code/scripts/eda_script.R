@@ -165,3 +165,6 @@ anova_analysis <- aov(Balance ~ Gender + Student + Married + Ethnicity, data = q
 sink("../../data/ANOVA_output.txt")
 anova_analysis
 sink()
+
+library('fields')
+bplot.xy(credit$Gender, credit$Balance)
