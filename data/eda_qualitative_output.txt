@@ -1,0 +1,13 @@
+  Gender freq relative frequency
+1   Male  193               0.48
+2 Female  207               0.52
+  Student freq relative frequency
+1      No  360                0.9
+2     Yes   40                0.1
+  Married freq relative frequency
+1      No  155               0.39
+2     Yes  245               0.61
+         Ethnicity freq relative frequency
+1 African American   99              0.248
+2            Asian  102              0.255
+3        Caucasian  199              0.498

@@ -140,3 +140,28 @@ student_freq
 married_freq
 ethnicity_freq
 sink()
+
+
+png('../../images/barplot_gender')
+barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))
+dev.off()
+
+png('../../images/barplot_student')
+barplot(student_freq$freq, main = "Student Frequencies", names.arg = c("No", "Yes"))
+dev.off()
+
+png('../../images/barplot_married')
+barplot(married_freq$freq, main = "Married Frequencies", names.arg = c("No", "Yes"))
+dev.off()
+
+png('../../images/barplot_ethnicity')
+barplot(ethnicity_freq$freq, main = "Ethnicity Frequencies", names.arg = c("African American", "Asian", "Caucasian"))
+dev.off()
+
+colnames(qual_credit)
+qual_credit <- credit[, c(8,9,10,11,12)]
+anova_analysis <- aov(Balance ~ Gender + Student + Married + Ethnicity, data = qual_credit)
+
+sink("../../data/ANOVA_output.txt")
+anova_analysis
+sink()
