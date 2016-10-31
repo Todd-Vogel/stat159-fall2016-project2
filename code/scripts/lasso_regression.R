@@ -1,8 +1,6 @@
 training_data <- read.csv("../../data/training_data.csv")
 training_data <- training_data[,-1]
 
-colnames(training_data)
-
 library("glmnet")
 library("lars")
 
