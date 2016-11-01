@@ -72,7 +72,6 @@ test_plsr <- predict(plsr_obj, newx = test_predictors, s = "validation$PRESS", t
 test_plsr
 save(test_plsr, file = "../../data/testing_plsr.RData")
 full_data <- read.csv("../../data/scaled_credit.csv")
-full_data <- read.csv("../../data/scaled_credit.csv")
 full_data <- full_data[,-1]
 full_data <- read.csv("../../data/scaled_credit.csv")#
 full_data <- full_data[,-1]#
