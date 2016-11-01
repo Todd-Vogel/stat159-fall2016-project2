@@ -14,6 +14,15 @@
 .PHONY: clean
 
 
+#do we need a make data??
+all:
+	make eda
+	make regressions
+	make tests
+	make reports
+	make slides
+	make session
+
 
 regressions:
 	make ols
@@ -23,14 +32,15 @@ regressions:
 	make plsr
 
 ols:
-
+	cd code/scripts && Rscript ordinary_least_squares.R
 ridge:
-	cd code/scripts && Rscript ridge_regression.R
+	cd code/scripts && R CMD BATCH ridge_regression.R
 lasso:
 
 pcr:
 	cd code/scripts && Rscript principal_components_regression.R
 plsr:
+	cd code/scripts && Rscript principal_components_regression.R
 
 
 
