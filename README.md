@@ -5,14 +5,23 @@
 
 `
 stat159-fall2016-project2/
+
 	code/
+
 		functions/
+
 		scripts/
+
 		tests/
+
 	data/
+
 	images/
+
 	report/
+
 		sections/
+
 	slides/
 `
 	
