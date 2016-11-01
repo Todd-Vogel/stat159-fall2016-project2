@@ -64,6 +64,28 @@ session-info.txt:
 
 #data: #use variables here to call everthing
 
+
+data/full_coefficients_plsr.RData: code/scripts/partial_least_squares_regression.R data/scaled_credit.csv
+	cd code/scripts; Rscript lasso_regression.R
+
+data/mse_plsr.txt: code/scripts/partial_least_squares_regression.R data/test_data.csv code/functions/mse_function.R
+	cd code/scripts; Rscript partial_least_squares_regression.R
+
+data/testing_plsr: code/scripts/partial_least_squares_regression.R data/test_data.csv
+	cd code/scripts; Rscript partial_least_squares_regression.R
+
+data/plsr_model.txt: code/scripts/partial_least_squares_regression.R data/training_data.csv
+	cd code/scripts; Rscript partial_least_squares_regression.R
+
+data/full_coefficients_lasso.RData: code/scripts/lasso_regression.R data/scaled_credit.csv
+	cd code/scripts; Rscript lasso_regression.R
+
+data/mse_lasso.txt: code/scripts/lasso_regression.R data/test_data.csv code/functions/mse_function.R
+	cd code/scripts; Rscript lasso_regression.R
+
+data/lasso_model.RData: code/scripts/lasso_regression.R data/training_data.csv
+	cd code/scripts; Rscript lasso_regression.R
+
 data/ANOVA_output.txt: code/scripts/eda_script.R data/Credit.csv
 	cd code/scripts; Rscript eda_script.R
 

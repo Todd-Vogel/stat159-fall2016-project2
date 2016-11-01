@@ -31,7 +31,11 @@ test_plsr <- predict(plsr_obj, newx = test_predictors, s = "validation$PRESS", t
 save(test_plsr, file = "../../data/testing_plsr.RData")
 
 source("../functions/mse_function.R")
-MSE(test_plsr, test_response)
+plsr_mse <- MSE(test_plsr, test_response)
+
+sink("../../data/mse_plsr.txt")
+plsr_mse
+sink()
 
 full_data <- read.csv("../../data/scaled_credit.csv")
 full_data <- full_data[,-1]
