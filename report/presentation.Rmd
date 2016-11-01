@@ -29,3 +29,6 @@ summary(cars)
 plot(cars)
 ```
 
+## Model Coefficients
+
+

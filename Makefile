@@ -25,12 +25,13 @@ regressions:
 ols:
 
 ridge:
-
+	cd code/scripts && Rscript ridge_regression.R
 lasso:
 
 pcr:
-
+	cd code/scripts && Rscript principal_components_regression.R
 plsr:
+
 
 
 
@@ -56,10 +57,10 @@ test:
 	cd code/tests; Rscript -e 'library(testthat); test_file("all_tests.R")'
 
 
-
+session: session-info.txt
 
 session-info.txt:
-	cd code/scripts; Rscript session-info-script.R
+	cd code/scripts; Rscript session_info_script.R
 
 
 #data: #use variables here to call everthing

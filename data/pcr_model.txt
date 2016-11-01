@@ -1,0 +1,12 @@
+[1] "The PCR model"
+          1 comps  2 comps  3 comps  4 comps 5 comps  6 comps  7 comps  8 comps
+response 125.0498 125.5984 124.0086 114.3458 110.827 105.4538 103.4496 105.0789
+          9 comps 10 comps 11 comps
+response 102.5588 14.64868 14.49415
+[1] "The PCR MSE"
+[1] 0.4147564
+[1] "The coefficients on the full dataset"
+Principal component regression , fitted with the singular value decomposition algorithm.
+Cross-validated using 10 random segments.
+Call:
+pcr(formula = response ~ predictors, validation = "CV")
