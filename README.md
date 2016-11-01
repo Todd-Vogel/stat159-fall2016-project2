@@ -3,25 +3,18 @@
 
 ### File Structure
 
-`stat159-fall2016-project2/
-
+`
+stat159-fall2016-project2/
 	code/
-	
 		functions/
-		
 		scripts/
-		
 		tests/
-		
 	data/
-	
 	images/
-	
 	report/
-	
 		sections/
-		
-	slides/`
+	slides/
+`
 	
 
 The main directories are `code/`, `data/`, `images/`, `report/` and `slides/`.  The `code/` directory importantly contains the the eda script as well as the scripts for our 5 regression analyses (ols, ridge, lasso, plsr, and pcr). The `data/` and `images/` directories mostly stores outputs from the scripts, however `data/` also houses the Credit.csv file and the training and tests sets used throughout the project.  The `report/` folder contains the various sections of the project report to be consolidated by the Makefile.
