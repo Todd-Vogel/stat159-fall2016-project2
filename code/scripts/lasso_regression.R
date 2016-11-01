@@ -33,9 +33,9 @@ predicted_response <- as.vector(predicted_response)
 source("../functions/mse_function.R")
 lasso_mse <- MSE(predicted_response, test_response)
 
-sink("../../data/mse_lasso.txt")
-lasso_mse
-sink()
+
+save(lasso_mse, file = "../../data/mse_lasso.RData")
+
 
 scaled_credit <- read.csv("../../data/scaled_credit.csv")
 scaled_credit <- scaled_credit[,-1]
@@ -50,3 +50,12 @@ full_coefficients <- coef(full.lasso)
 
 save(full_coefficients, file = "../../data/full_coefficients_lasso.RData")
 
+
+sink("../../data/lasso_output.txt")
+print("model coefficients")
+bestmodel_lasso
+print("prediction mse")
+lasso_mse
+print("full model coefficients")
+full_coefficients
+sink()
