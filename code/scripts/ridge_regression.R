@@ -17,9 +17,11 @@ grid <- 10^seq(10, -2, length = 100)
 set.seed(100)
 cross_v <- cv.glmnet(x = predictors, y = response, intercept = FALSE, standardize = FALSE, lambda = grid, alpha = 0)
 
-sink(file = "../../data/ridge_model.txt")
 best_model_ridge <- coef(cross_v, cross_v$lambda.min)[which(coef(cross_v, s = "lambda.min") != 0)]
-sink()
+#saving coefficients of the model
+save(best_model_ridge, file = "../../data/ridge_model.RData")
+
+
 
 #Adding Histograms to Images
 png('../../images/CV_Errors_Ridge.png')
@@ -37,7 +39,9 @@ test_ridge <- predict(cross_v, newx = test_predictors, s = "lambda.min", type="r
 save(test_ridge,file =  "../../data/testing_ridge.RData")
 
 source("../functions/mse_function.R")
-MSE(test_ridge, response)
+MSE_ridge = MSE(test_ridge, response)
+
+save(MSE_ridge, file = "../../data/MSE_ridge.RData" )
 
 full_data <- read.csv(file = "../../data/scaled_credit.csv")
 full_data <- full_data[,-1]
@@ -53,3 +57,17 @@ full_ridge = glmnet(x = predictors, y = response, intercept = FALSE, standardize
 #getting coefficients and saving
 ridge_coef <- coef(full_ridge)
 save(ridge_coef, file = "../../data/full_coeffecients_ridge.RData")
+
+#saving data from this model to a txt file
+sink(file = "../../data/ridge_model.txt")
+best_model_ridge
+print("Coefficients for the Ridge Model")
+best_model_ridge
+print("MSE for the Ridge Model")
+MSE_ridge
+print("Coefficients for the model run on the full data set")
+ridge_coef
+sink()
+
+
+

@@ -1,0 +1,35 @@
+[1] "The OLS model"
+
+Call:
+lm(formula = Balance ~ Income + Limit + Rating + Cards + Age + 
+    Education + GenderFemale + StudentYes + MarriedYes + EthnicityAsian + 
+    EthnicityCaucasian, data = training_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.36129 -0.15938 -0.02077  0.11252  0.68273 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        -0.002626   0.012472  -0.211 0.833366    
+Income             -0.604991   0.020687 -29.245  < 2e-16 ***
+Limit               1.066805   0.195708   5.451 1.08e-07 ***
+Rating              0.285558   0.196228   1.455 0.146693    
+Cards               0.057782   0.014752   3.917 0.000112 ***
+Age                -0.013108   0.012713  -1.031 0.303372    
+Education          -0.006477   0.012442  -0.521 0.603044    
+GenderFemale       -0.014922   0.012548  -1.189 0.235337    
+StudentYes          0.282197   0.012331  22.885  < 2e-16 ***
+MarriedYes         -0.009309   0.012689  -0.734 0.463783    
+EthnicityAsian      0.011108   0.015615   0.711 0.477405    
+EthnicityCaucasian  0.011333   0.015413   0.735 0.462755    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.2153 on 288 degrees of freedom
+Multiple R-squared:  0.9566,	Adjusted R-squared:  0.9549 
+F-statistic: 576.5 on 11 and 288 DF,  p-value: < 2.2e-16
+
+[1] "The PCR MSE"
+         1 
+0.04661927 
