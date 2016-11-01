@@ -17,6 +17,10 @@ grid <- 10^seq(10, -2, length = 100)
 set.seed(100)
 cross_v <- cv.glmnet(x = predictors, y = response, intercept = FALSE, standardize = FALSE, lambda = grid, alpha = 0)
 
+best_model_ridge <- coef(cross_v, cross_v$lambda.min)[which(coef(cross_v, s = "lambda.min") != 0)]
+#saving coefficients of the model
+save(best_model_ridge, file = "../../data/ridge_model.RData")
+
 
 
 #Adding Histograms to Images
@@ -56,7 +60,7 @@ save(ridge_coef, file = "../../data/full_coeffecients_ridge.RData")
 
 #saving data from this model to a txt file
 sink(file = "../../data/ridge_model.txt")
-best_model_ridge <- coef(cross_v, cross_v$lambda.min)[which(coef(cross_v, s = "lambda.min") != 0)]
+best_model_ridge
 print("Coefficients for the Ridge Model")
 best_model_ridge
 print("MSE for the Ridge Model")
@@ -64,4 +68,5 @@ MSE_ridge
 print("Coefficients for the model run on the full data set")
 ridge_coef
 sink()
+
 
