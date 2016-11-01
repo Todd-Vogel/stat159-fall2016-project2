@@ -166,5 +166,31 @@ sink("../../data/ANOVA_output.txt")
 anova_analysis
 sink()
 
-library('fields')
-bplot.xy(credit$Gender, credit$Balance)
+library('ggplot2')
+gender_conditional_plot <- ggplot(credit, aes(x = Gender, y = Balance, fill = Gender)) + geom_boxplot()
+
+png('../../images/gender_conditional_plot.png')
+gender_conditional_plot
+dev.off()
+
+
+ethnicity_conditional_plot <- ggplot(credit, aes(x = Ethnicity, y = Balance, fill = Ethnicity)) + geom_boxplot()
+
+png('../../images/ethnicity_conditional_plot.png')
+ethnicity_conditional_plot
+dev.off()
+
+
+student_conditional_plot <- ggplot(credit, aes(x = Student, y = Balance, fill = Student)) + geom_boxplot()
+
+png('../../images/student_conditional_plot.png')
+student_conditional_plot
+dev.off()
+
+
+married_conditional_plot <- ggplot(credit, aes(x = Married, y = Balance, fill = Married)) + geom_boxplot()
+
+png('../../images/married_conditional_plot.png')
+married_conditional_plot
+dev.off()
+

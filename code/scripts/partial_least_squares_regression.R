@@ -13,7 +13,7 @@ plsr_obj <- plsr(response ~ predictors, validation = "CV")
 
 plsr_model <- plsr_obj$validation$PRESS
 
-sink("../../plsr_model.txt")
+sink("../../data/plsr_model.txt")
 plsr_model
 sink()
 
