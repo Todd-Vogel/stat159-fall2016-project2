@@ -1,0 +1,4 @@
+          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps 7 comps
+response 95.46987 47.32559 16.36383 14.93461 14.58047 14.65071 14.6793
+          8 comps  9 comps 10 comps 11 comps
+response 14.75143 14.69065 14.66097 14.66403
