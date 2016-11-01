@@ -28,8 +28,9 @@ test_set <- test_set[,-1]
 test_set <- test_set[,-12]
 test_predictors = as.matrix(test_set)
 
-test_pcr <- predict(pcr_obj, newx = test_predictors, s = "validation$PRESS", type="response")
+test_pcr <- predict(pcr_obj, ncomp = 1, newdata = test_predictors, s = "validation$PRESS", type="response")
 save(test_pcr,file =  "../../data/testing_pcr.RData")
+
 
 source("../functions/mse_function.R")
 MSE_pcr = MSE(test_pcr, response)
