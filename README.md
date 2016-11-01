@@ -4,8 +4,6 @@
 ### File Structure
 
 `
-stat159-fall2016-project2/
-
 	code/
 
 		functions/
