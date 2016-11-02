@@ -1,8 +1,19 @@
 [1] "model coefficients"
-          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps 7 comps  8 comps
-response 95.46987 47.32559 16.36383 14.93461 14.58047 14.65071 14.6793 14.75143
-          9 comps 10 comps 11 comps
-response 14.69065 14.66097 14.66403
+, , 11 comps
+
+                       response
+Income             -0.604991491
+Limit               1.066805051
+Rating              0.285557718
+Cards               0.057781844
+Age                -0.013108162
+Education          -0.006477420
+GenderFemale       -0.014922238
+StudentYes          0.282196557
+MarriedYes         -0.009308719
+EthnicityAsian      0.011108454
+EthnicityCaucasian  0.011333371
+
 [1] "applied predictors"
 , , 1 comps
 
