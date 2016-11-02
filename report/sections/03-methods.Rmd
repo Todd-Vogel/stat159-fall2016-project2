@@ -1,2 +1,48 @@
+---
+output:pdf_document
+---
 
-The many of the modelling methods used are found in Chapter 6 of the book **Linear Model Selection and Regularization**.
+# Methods
+
+This project involved the use and implementation of 5 different linear models. The shrinkage and dimension-reduction modelling methods used are found in Chapter 6 of the book **Linear Model Selection and Regularization**. The traditional ordinary least squares model was found in Chapter 3 of that book.
+
+##Ordinary Least Squares
+
+Here we determined the basic linear relationship between variables (`Balance` is response, and all others are predictors). In order to find these relationships we had to fit the variables to the following model:
+
+$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_n X_n + \epsilon$$
+
+To do so we utilized the `lm()` function to solve for the coefficient values  $\beta_0$, $\beta_1$, $\beta_2$, to $\beta_n$. Now, once we had determined a model for the training data, we applied it to the test data to determine a predicted response. From there we calculated the mean squared error (a measure of predicted power), by using the function:
+
+$$MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i - y_{di})^2$$
+
+This subtracts each predicted response from the actual response and squares it then sums up each of the points and takes the average.
+
+## Ridge Regression
+
+Ridge Regression is the first of the two shrinkage modelling methods we used.  When using shrinkage methods the goal is to penalize certain parameters that should have a less significant effect on the model. To do so we use the tuning parameter, $\lambda$, times $\sum_{j=1}^{p}\beta_{j}^{2}$ to yeild the shrinkage penalty. We then determine the coefficients that minimize the following equation:
+
+$$\sum_{i=1}^{n}(y_i-\beta_0-\sum_{j=1}^{p}\beta_jx_{ij}) + \lambda\sum_{j=1}^{p}\beta_{j}^{2}$$
+
+To find these coefficients we used the function `cv.glmnet()` to determine through cross validation which $\lambda$ value minimizes the above function (when $\lambda$ was a given sequence of numbers under `grid`, and `alpha` was set to 0). After the coefficients were calculated we again calculated the MSE to determine the predictive power of our model.
+
+## Lasso Regression
+
+Lasso regression is the second and final shrinkage modelling method used in this project. Although it is very similar to ridge regression there are a few key differences: the shrinkage penalty is now $\lambda$, times $\sum_{j=1}^{p}\beta_{j}^{2}$ ($\beta$ is not squared), and lasso allows for the removal of certain variables (not just dampening their effect). To determine the coefficients we must look for the $\beta$s that minimize:
+
+$$\sum_{i=1}^{n}(y_i-\beta_0-\sum_{j=1}^{p}\beta_jx_{ij}) + \lambda\sum_{j=1}^{p}|\beta_{j}|$$
+
+Again, to find the coefficient we used `cv.glmnet()` and set $\lambda$ to `grid`. However, now, `alpha` was set to 1. Finally, we calculated MSE to determine the predictive power of our model.
+
+## Principle Components Regression
+
+PCR is the first of two dimension reduction modelling methods we used.  This method labors under the assumption that a subset of all of the predictor variables account for the vast majority of the variance.  These more significant variables are referred to as principle components (M).  PCR works by setting M equal to some reduced number of variables and running cross validation on, the model with the lowest cross validation error is selected.
+
+To develop a model through PCR we used the `pcr()` function and set `validation`= CV.  We then found the model in which PRESS was larger to avoid overfitting. Finally, we calculated MSE to determine the predictive power of our model.
+
+## Partial Least Squares Regression
+
+
+PLSR is the second and final dimension reduction modelling method used in this project. PLSR is very similar to PCR in that it looks at a subset of predictors, fits a linear model to those M variables, and determines the best dimension reduced model.  However, unlike PCR, PLSR is a supervised alternative. This means that PLSR uses the response, Y, to determine if new features are good approximations and whether they are related to response.
+
+To develop a model through PLSR we used the `plsr()` function and, like with PCR, set `validation`= CV. Again, we found the model in which PRESS was larger. Finally, we calculated MSE to determine the predictive power of our model.
