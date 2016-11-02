@@ -1,0 +1,97 @@
+
+R version 3.2.2 (2015-08-14) -- "Fire Safety"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> training_data <- read.csv("../../data/training_data.csv")
+> training_data <- training_data[,-1]
+> 
+> library("glmnet")
+Loading required package: Matrix
+Loading required package: foreach
+Loaded glmnet 2.0-5
+
+Warning messages:
+1: package ‘glmnet’ was built under R version 3.2.4 
+2: package ‘Matrix’ was built under R version 3.2.5 
+> library("lars")
+Loaded lars 1.2
+
+> 
+> response <- training_data$Balance
+> response <- as.matrix(response)
+> predictors <- training_data[,-12]
+> predictors <- as.matrix(predictors)
+> 
+> grid <- 10^seq(10, -2, length = 100)
+> 
+> set.seed(1)
+> lm.lasso <- cv.glmnet(predictors, response, lambda = grid, alpha = 1, intercept = FALSE, standardize = FALSE)
+> bestmodel_lasso <- coef(lm.lasso, lm.lasso$lambda.min)
+> 
+> save(bestmodel_lasso, file = "../../data/lasso_model.RData")
+> 
+> png("../../images/CV_errors_lasso.png")
+> plot(lm.lasso, main = "CV Errors Lasso")
+> dev.off()
+null device 
+          1 
+> 
+> test_data <- read.csv("../../data/test_data.csv")
+> test_data <- test_data[,-1]
+> test_predictors <- test_data[, -12]
+> test_predictors <- as.matrix(test_predictors)
+> test_response <- test_data[,12]
+> 
+> predicted_response <- predict(lm.lasso, newx=test_predictors, s = "lambda.min", type = "response")
+> predicted_response <- as.vector(predicted_response)
+> 
+> source("../functions/mse_function.R")
+> lasso_mse <- MSE(predicted_response, test_response)
+> 
+> 
+> save(lasso_mse, file = "../../data/MSE_lasso.RData")
+> 
+> 
+> scaled_credit <- read.csv("../../data/scaled_credit.csv")
+> scaled_credit <- scaled_credit[,-1]
+> total_response <- scaled_credit$Balance
+> total_response <- as.matrix(total_response)
+> total_predictors <- scaled_credit[,-12]
+> total_predictors <- as.matrix(total_predictors)
+> 
+> 
+> full.lasso <- glmnet(total_predictors, total_response, lambda = lm.lasso$lambda.min, alpha = 1, intercept = FALSE, standardize = FALSE)
+> full_coefficients <- coef(full.lasso)
+> 
+> save(full_coefficients, file = "../../data/full_coefficients_lasso.RData")
+> 
+> 
+> sink("../../data/lasso_model.txt")
+> print("model coefficients")
+> bestmodel_lasso
+> print("prediction mse")
+> lasso_mse
+> print("full model coefficients")
+> full_coefficients
+> sink()
+> 
+> proc.time()
+   user  system elapsed 
+  2.062   0.113   2.208 

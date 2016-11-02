@@ -56,7 +56,7 @@ full_ridge = glmnet(x = predictors, y = response, intercept = FALSE, standardize
 
 #getting coefficients and saving
 ridge_coef <- coef(full_ridge)
-save(ridge_coef, file = "../../data/full_coeffecients_ridge.RData")
+save(ridge_coef, file = "../../data/full_coeffecients_ridge.RData")  
 
 #saving data from this model to a txt file
 sink(file = "../../data/ridge_model.txt")

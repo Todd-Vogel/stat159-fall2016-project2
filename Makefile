@@ -16,11 +16,12 @@
 
 #make a data phony
 all:
+	make data
 	make eda
 	make regressions
 	make tests
-	make reports
 	make slides
+	make report
 	make session
 
 regressions:
@@ -46,8 +47,7 @@ eda:
 
 
 #creating the report - depends on running the regression
-report: report/report.pdf
-	make regressions
+report: report.pdf
 report.pdf: report.Rmd report.html
 	cd report; R -e "rmarkdown::render('report.Rmd')" #need to make sure the output for the RMD is set as PDF
 report.Rmd:
@@ -56,15 +56,14 @@ report.html: report/report.Rmd
 	cd report/sections && pandoc -f markdown -t html -o ../paper.html *.Rmd
 
 #creating the slides
-slides: report/presentation.html
-report/presentation.html:
-	cd report && R -e "rmarkdown::render('presentation.Rmd')"
+slides: slides/presentation.html
+slides/presentation.html:
+	cd slides && R -e "rmarkdown::render('presentation.Rmd')"
 
 #cleaning the report
 clean:
 	rm report/paper.html report/report.Rmd report/report.html report/presentation.html
 	rm session-info.txt
-
 
 #testing
 test:
@@ -75,61 +74,15 @@ session:
 	bash session.sh
 	cd code/scripts; Rscript session-info.R
 
-
-
-
+#getting all data files
 data:
-
-#bellow this should chance, we need to run it like I did above!
-
-data/full_coefficients_plsr.RData: code/scripts/partial_least_squares_regression.R data/scaled_credit.csv
-	cd code/scripts; Rscript lasso_regression.R
-
-data/mse_plsr.txt: code/scripts/partial_least_squares_regression.R data/test_data.csv code/functions/mse_function.R
-	cd code/scripts; Rscript partial_least_squares_regression.R
-
-data/testing_plsr: code/scripts/partial_least_squares_regression.R data/test_data.csv
-	cd code/scripts; Rscript partial_least_squares_regression.R
-
-data/plsr_model.txt: code/scripts/partial_least_squares_regression.R data/training_data.csv
-	cd code/scripts; Rscript partial_least_squares_regression.R
-
-data/full_coefficients_lasso.RData: code/scripts/lasso_regression.R data/scaled_credit.csv
-	cd code/scripts; Rscript lasso_regression.R
-
-data/mse_lasso.txt: code/scripts/lasso_regression.R data/test_data.csv code/functions/mse_function.R
-	cd code/scripts; Rscript lasso_regression.R
-
-data/lasso_model.RData: code/scripts/lasso_regression.R data/training_data.csv
-	cd code/scripts; Rscript lasso_regression.R
-
-data/ANOVA_output.txt: code/scripts/eda_script.R data/Credit.csv
-	cd code/scripts; Rscript eda_script.R
-
-data/eda_qualitative_output.txt: code/scripts/eda_script.R data/Credit.csv
-	cd code/scripts; Rscript eda_script.R
-
-data/eda_quantitative_output.txt: code/scripts/eda_script.R data/Credit.csv
-	cd code/scripts; Rscript eda_script.R
-
-data/correlation_matrix.RData: code/scripts/eda_script.R data/Credit.csv
-	cd code/scripts; Rscript eda_script.R
-
-data/training_data.csv: code/data_separation.R data/scaled_credit.csv
-	cd code; Rscript data_separation.R
-
-data/test_data.csv: code/data_separation.R data/scaled_credit.csv
-	cd code; Rscript data_separation.R
-
-data/scaled_credit.csv: code/Data_Cleaning.R data/Credit.csv
-	cd code; Rscript Data-Cleaning.R
-
-data/Credit.csv:
 	curl -o data/Credit.csv "http://www-bcf.usc.edu/~gareth/ISL/Credit.csv"
+	cd code/scripts; Rscript eda_script.R
+	cd code/scripts; Rscript Data_Cleaning.R
+	cd code/scripts; Rscript data_separation.R
 
 
 
 	# 	Your Makefile should include:
 	# – declaration of variables
 	# – use of Make automatic variables
-	# – comments for rules, targets or dependencies that need further description – all required phony targets

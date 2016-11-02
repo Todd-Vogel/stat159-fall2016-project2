@@ -14,7 +14,8 @@ set.seed(100)
 pcr_obj <- pcr(response ~ predictors, validation = "CV")
 
 pcr_model <- pcr_obj$validation$PRESS
-save(pcr_model, file = "../../data/pcr_model.RData")
+pcr_coef <- coef(pcr_obj)
+save(pcr_model, pcr_coef, file = "../../data/pcr_model.RData")
 
 #Adding Histograms to Images
 png('../../images/CV_Errors_pcr.png')
@@ -48,17 +49,19 @@ predictors <- as.matrix(predictors)
 full_pcr = pcr(response ~ predictors, validation = "CV")
 
 #getting coefficients and saving
-pcr_coef <- coef(full_pcr)
+pcr_full_coef <- coef(full_pcr)
 save(pcr_coef, file = "../../data/full_coeffecients_pcr.RData")
 
 #saving  the important stuff
 sink(file = "../../data/pcr_model.txt")
 print("The PCR model")
-pcr_model
+pcr_coef
 print("The PCR MSE")
 MSE_pcr
+print("applied predictors")
+test_pcr
 print("The coefficients on the full dataset")
-full_pcr
+pcr_full_coef
 sink()
 
 

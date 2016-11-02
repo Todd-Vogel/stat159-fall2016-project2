@@ -1,0 +1,32 @@
+[1] "model coefficients"
+12 x 1 sparse Matrix of class "dgCMatrix"
+                              1
+(Intercept)         .          
+Income             -0.539753789
+Limit               0.814935631
+Rating              0.469912804
+Cards               0.039598119
+Age                -0.005160077
+Education           .          
+GenderFemale        .          
+StudentYes          0.265946123
+MarriedYes          .          
+EthnicityAsian      .          
+EthnicityCaucasian  .          
+[1] "prediction mse"
+[1] 0.04745661
+[1] "full model coefficients"
+12 x 1 sparse Matrix of class "dgCMatrix"
+                            s0
+(Intercept)         .         
+Income             -0.53683751
+Limit               0.88660552
+Rating              0.39122065
+Cards               0.04100089
+Age                -0.01450185
+Education           .         
+GenderFemale        .         
+StudentYes          0.26307050
+MarriedYes          .         
+EthnicityAsian      .         
+EthnicityCaucasian  .         

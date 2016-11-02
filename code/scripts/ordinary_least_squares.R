@@ -20,15 +20,15 @@ test_ols <- predict(ols, newdata = test_predictors, type ="response")
 source("../functions/mse_function.R")
 MSE_ols <- MSE(test_ols, response)
 
-save(ols_coef, file = "../../data/ols_coef.RData")
-save(MSE_ols, file = "../../data/ols_MSE.RData")
+save(ols_coef, file = "../../data/ols_model.RData")
+save(MSE_ols, file = "../../data/MSE_ols.RData")
 
 
 
 #saving  the important stuff
-sink(file = "../../data/pcr_model.txt")
+sink(file = "../../data/ols_model.txt")
 print("The OLS model")
 summary(ols)
-print("The PCR MSE")
+print("The OLS MSE")
 MSE_ols
 sink()
