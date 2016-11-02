@@ -12,7 +12,7 @@
 .PHONY: slides
 .PHONY: session
 .PHONY: clean
-
+.PHONY: data
 
 #make a data phony
 all:
@@ -45,35 +45,41 @@ eda:
 	cd code/scripts && Rscript eda_script.R
 
 
-#creating the report
+#creating the report - depends on running the regression
 report: report/report.pdf
+	make regressions
+report.pdf: report.Rmd report.html
+	cd report; R -e "rmarkdown::render('report.Rmd')" #need to make sure the output for the RMD is set as PDF
 report.Rmd:
 	cd report/sections && pandoc -f markdown -t markdown -o ../report.Rmd *.Rmd
 report.html: report/report.Rmd
 	cd report/sections && pandoc -f markdown -t html -o ../paper.html *.Rmd
-report.pdf:
-	cd report; R -e "rmarkdown::render('report.Rmd')" #need to make sure the output for the RMD is set as PDF
 
 #creating the slides
 slides: report/presentation.html
 report/presentation.html:
 	cd report && R -e "rmarkdown::render('presentation.Rmd')"
 
-#cleaning the reports
+#cleaning the report
 clean:
 	rm report/paper.html report/report.Rmd report/report.html report/presentation.html
+	rm session-info.txt
+
 
 #testing
 test:
 	cd code/tests; Rscript -e 'library(testthat); test_file("all_tests.R")'
 
 #session info
-session: session-info.txt
-session-info.txt:
-	cd code/scripts; Rscript session_info_script.R
+session:
+	bash session.sh
+	cd code/scripts; Rscript session-info.R
 
 
-#data: #use variables here to call everthing
+
+
+data:
+
 #bellow this should chance, we need to run it like I did above!
 
 data/full_coefficients_plsr.RData: code/scripts/partial_least_squares_regression.R data/scaled_credit.csv
