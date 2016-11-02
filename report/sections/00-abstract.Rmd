@@ -1,6 +1,6 @@
 ---
 title: 'HW 2: Simple Regression Analysis'
-author: "Todd Vogel"
+author: "Bryan Alcorn & Todd Vogel"
 date: "10/6/2016"
 output: pdf_document
 ---
