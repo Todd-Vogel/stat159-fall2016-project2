@@ -86,31 +86,31 @@ hist(Balance)
 dev.off()
 
 
-png('../../images/boxplot_income')
+png('../../images/boxplot_income.png')
 boxplot(Income)
 dev.off()
 
-png('../../images/boxplot_limit')
+png('../../images/boxplot_limit.png')
 boxplot(Limit)
 dev.off()
 
-png('../../images/boxplot_rating')
+png('../../images/boxplot_rating.png')
 boxplot(Rating)
 dev.off()
 
-png('../../images/boxplot_cards')
+png('../../images/boxplot_cards.png')
 boxplot(Cards)
 dev.off()
 
-png('../../images/boxplot_age')
+png('../../images/boxplot_age.png')
 boxplot(Age)
 dev.off()
 
-png('../../images/boxplot_education')
+png('../../images/boxplot_education.png')
 boxplot(Education)
 dev.off()
 
-png('../../images/boxplot_Balance')
+png('../../images/boxplot_Balance.png')
 boxplot(Balance)
 dev.off()
 
@@ -142,23 +142,22 @@ ethnicity_freq
 sink()
 
 
-png('../../images/barplot_gender')
+png('../../images/barplot_gender.png')
 barplot(gender_freq$freq, main = "Gender Frequencies", names.arg = c("Male", "Female"))
 dev.off()
 
-png('../../images/barplot_student')
+png('../../images/barplot_student.png')
 barplot(student_freq$freq, main = "Student Frequencies", names.arg = c("No", "Yes"))
 dev.off()
 
-png('../../images/barplot_married')
+png('../../images/barplot_married.png')
 barplot(married_freq$freq, main = "Married Frequencies", names.arg = c("No", "Yes"))
 dev.off()
 
-png('../../images/barplot_ethnicity')
+png('../../images/barplot_ethnicity.png')
 barplot(ethnicity_freq$freq, main = "Ethnicity Frequencies", names.arg = c("African American", "Asian", "Caucasian"))
 dev.off()
 
-colnames(qual_credit)
 qual_credit <- credit[, c(8,9,10,11,12)]
 anova_analysis <- aov(Balance ~ Gender + Student + Married + Ethnicity, data = qual_credit)
 

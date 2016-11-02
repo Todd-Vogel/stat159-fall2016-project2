@@ -13,9 +13,7 @@ plsr_obj <- plsr(response ~ predictors, validation = "CV")
 
 plsr_model <- plsr_obj$validation$PRESS
 
-sink("../../data/plsr_model.txt")
-plsr_model
-sink()
+save(plsr_model, file = "../../data/plsr_model.RData")
 
 png("../../images/CV_Errors_plsr.png")
 validationplot(plsr_obj, val.type = "MSEP")
@@ -33,9 +31,7 @@ save(test_plsr, file = "../../data/testing_plsr.RData")
 source("../functions/mse_function.R")
 plsr_mse <- MSE(test_plsr, test_response)
 
-sink("../../data/mse_plsr.txt")
-plsr_mse
-sink()
+save(plsr_mse, file = "../../data/mse_plsr.RData")
 
 full_data <- read.csv("../../data/scaled_credit.csv")
 full_data <- full_data[,-1]
@@ -51,5 +47,13 @@ plsr_coef <- coef(full_plsr)
 save(plsr_coef, file = "../../data/full_coefficients_plsr.RData")
 
 
-
-
+sink("../../data/plsr_model.txt")
+print("model coefficients")
+plsr_model
+print("applied predictors")
+test_plsr
+print("mse of prediction")
+plsr_mse
+print("full model coefficients")
+plsr_coef
+sink()
