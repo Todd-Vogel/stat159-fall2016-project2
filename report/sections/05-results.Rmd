@@ -1,0 +1,52 @@
+---
+output: pdf_document
+---
+
+# Results
+
+```{r, echo = FALSE}
+setwd("/Users/toddvogel/Documents/Senior Year/stat159-fall2016-project2/report/sections")
+
+load('../../data/MSE_ols.RData')
+load('../../data/MSE_ridge.RData')
+load('../../data/MSE_pcr.RData')
+load('../../data/mse_lasso.RData')
+load('../../data/mse_plsr.RData')
+load('../../data/ols_model.RData')
+load('../../data/ridge_model.RData')
+load('../../data/lasso_model.RData')
+load('../../data/pcr_model.RData')
+load('../../data/plsr_model.RData')
+
+library(xtable)
+library(Matrix)
+options(xtable.caption.placement = 'top', xtable.comment = FALSE)
+```
+
+```{r, echo=FALSE, xtable, results='asis'}
+MSE <- c(MSE_ols, MSE_ridge, lasso_mse, MSE_pcr, plsr_mse)
+Model <- c('OLS', 'Ridge', 'Lasso', 'PCR', 'PLSR')
+mse.frame <- data.frame(Model, MSE)
+
+MSE_table <- xtable(mse.frame, caption="Information about Mean Squared Errors", digits = 3)
+print(MSE_table, type="latex")
+```
+
+
+
+
+```{r, echo=FALSE, results='asis'}
+Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
+OLS <- as.vector(ols_coef)
+Ridge <- as.vector(best_model_ridge) 
+Ridge <- append(Ridge, 0, 0)
+Lasso <- as.vector(bestmodel_lasso) 
+PCR <- as.vector(pcr_coef) 
+PCR <- append(PCR, 0, 0)
+PLSR <- as.vector(plsr_coef) 
+PLSR <- append(PLSR, 0, 0)
+
+Coef.frame <- data.frame(Variables, OLS, Ridge, Lasso, PCR, PLSR)
+
+Coef_table <- xtable(Coef.frame, caption="Information about Model Coefficients", digits = 3)
+print(Coef_table, type="latex")
