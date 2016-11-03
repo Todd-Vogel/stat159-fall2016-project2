@@ -26,6 +26,11 @@ pandoc --version >> $info
 echo >> $info
 echo >> $info
 
+#Ones not caught by everythign else
+echo "Other packages used" >> $info
+echo "--------------" >> $info
+echo "glmnet, lars, MASS, pls, reshape2, Matrix" >> $info
+
 # Version of R
 echo "R Version" >> $info
 echo "---------" >> $info
