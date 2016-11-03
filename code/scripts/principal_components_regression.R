@@ -15,9 +15,9 @@ pcr_obj <- pcr(response ~ predictors, validation = "CV")
 
 ncomp_pcr <- which(pcr_obj$validation$PRESS == min(pcr_obj$validation$PRESS)) #selects comp with best model
 
-pcr_model <- coef(pcr_obj)
+pcr_coef <- coef(pcr_obj)
 
-save(pcr_model, file = "../../data/pcr_model.RData")
+save(pcr_coef, file = "../../data/pcr_model.RData")
 
 #Adding Histograms to Images
 png('../../images/CV_Errors_pcr.png')
@@ -55,8 +55,8 @@ save(pcr_coef, file = "../../data/full_coeffecients_pcr.RData")
 
 #saving  the important stuff
 sink(file = "../../data/pcr_model.txt")
-print("The PCR model")
-pcr_model
+print("The PCR model Coefficients")
+pcr_coef
 print("The PCR MSE")
 MSE_pcr
 print("The coefficients on the full dataset")
