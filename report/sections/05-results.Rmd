@@ -1,8 +1,11 @@
+---
+output: pdf_document
+---
 # Results
 
 After forming the aforementioned regression models we found 12 coefficients that represent the best fit for each model. The resulting predictive function looks like:
 
-$$Y = \beta_) + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + \beta_5 X_5 + \beta_6 X_6 + \beta_7 X_7 + \beta_8 X_8 + \beta_9 X_9 + \beta_{10} X_{10} + \beta_{11} X_{11} + \beta_{12} X_{12}$$
+$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + \beta_5 X_5 + \beta_6 X_6 + \beta_7 X_7 + \beta_8 X_8 + \beta_9 X_9 + \beta_{10} X_{10} + \beta_{11} X_{11}$$
 
 ```{r, echo = FALSE}
 load('../data/MSE_ols.RData')
