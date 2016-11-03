@@ -5,7 +5,7 @@ training_data <- training_data[,-1]
 
 #formatting response and predictors 
 response <- training_data$Balance #Balance
-response <- as.matrix(response)aa
+response <- as.matrix(response)
 predictors <- training_data[,-12]  #everythning but Balance
 predictors <- as.matrix(predictors)
 
