@@ -56,10 +56,10 @@ save(pcr_coef, file = "../../data/full_coeffecients_pcr.RData")
 sink(file = "../../data/pcr_model.txt")
 print("The PCR model")
 pcr_coef
-print("The PCR MSE")
-MSE_pcr
 print("applied predictors")
 test_pcr
+print("The PCR MSE")
+MSE_pcr
 print("The coefficients on the full dataset")
 pcr_full_coef
 sink()

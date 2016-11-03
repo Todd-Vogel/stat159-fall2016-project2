@@ -11,9 +11,9 @@ predictors <- as.matrix(predictors)
 set.seed(1)
 plsr_obj <- plsr(response ~ predictors, validation = "CV")
 
-plsr_model <- plsr_obj$validation$PRESS
+ncomp_plsr <- which(plsr_obj$validation$PRESS == min(plsr_obj$validation$PRESS)) #selects comp with best model
 plsr_coef <- coef(plsr_obj)
-save(plsr_model,plsr_coef, file = "../../data/plsr_model.RData")
+save(plsr_coef, file = "../../data/plsr_model.RData")
 
 png("../../images/CV_Errors_plsr.png")
 validationplot(plsr_obj, val.type = "MSEP")
@@ -25,7 +25,7 @@ test_data <- test_data[, -1]
 test_predictors <- test_data[,-12]
 test_predictors <- as.matrix(test_predictors)
 
-test_plsr <- predict(plsr_obj, ncomp = 1,  newdata =test_predictors, s = "validation$PRESS", type = "response")
+test_plsr <- predict(plsr_obj, ncomp = ncomp_plsr,  newdata =test_predictors, s = "validation$PRESS", type = "response")
 
 save(test_plsr, file = "../../data/testing_plsr.RData")
 
