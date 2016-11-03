@@ -5,7 +5,7 @@ training_data <- training_data[,-1]
 
 #formatting response and predictors 
 response <- training_data$Balance #Balance
-response <- as.matrix(response)
+response <- as.matrix(response)aa
 predictors <- training_data[,-12]  #everythning but Balance
 predictors <- as.matrix(predictors)
 
@@ -13,7 +13,10 @@ predictors <- as.matrix(predictors)
 set.seed(100)
 pcr_obj <- pcr(response ~ predictors, validation = "CV")
 
-pcr_model <- pcr_obj$validation$PRESS
+ncomp_pcr <- which(pcr_obj$validation$PRESS == min(pcr_obj$validation$PRESS)) #selects comp with best model
+
+pcr_model <- coef(pcr_obj)
+
 save(pcr_model, file = "../../data/pcr_model.RData")
 
 #Adding Histograms to Images
@@ -28,7 +31,7 @@ test_set <- test_set[,-1]
 test_set <- test_set[,-12]
 test_predictors = as.matrix(test_set)
 
-test_pcr <- predict(pcr_obj,ncomp = 1, newdata = test_predictors, s = "validation$PRESS", type="response")
+test_pcr <- predict(pcr_obj, ncomp = 1, newdata = test_predictors, s = "validation$PRESS", type="response")
 save(test_pcr,file =  "../../data/testing_pcr.RData")
 
 source("../functions/mse_function.R")
