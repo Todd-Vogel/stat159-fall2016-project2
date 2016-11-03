@@ -1,0 +1,42 @@
+install.packages("pls")
+library("pls")
+?plsr()
+credit <- read.csv('../../data/Credit.csv')
+bplot.xy(credit$Gender, credit$Balance)
+library(fields)
+bplot.xy(credit$Gender, credit$Balance)
+bplot.xy(credit$Balance ~ credit$Gen	der)
+credit$Gender
+hist(credit$Balance ~ credit$Gen	der)
+hist(credit$Balance ~ credit$Gender)
+bplot.xy(credit$Balance ~ credit$Gender)
+gender = as.list(levels(credit$Gender))
+bplot.xy(credit$Balance ~ gender)
+library("pls")#
+#
+training_data <- read.csv("../../data/training_data.csv")#
+training_data <- training_data[,-1]#
+#
+response <- training_data$Balance#
+response <- as.matrix(response)#
+predictors <- training_data[,-12]#
+predictors <- as.matrix(predictors)#
+#
+set.seed(1)#
+plsr_obj <- plsr(response ~ predictors, validation = "CV")
+library("pls")#
+#
+training_data <- read.csv("../../data/training_data.csv")#
+training_data <- training_data[,-1]#
+#
+response <- training_data$Balance#
+response <- as.matrix(response)#
+predictors <- training_data[,-12]#
+predictors <- as.matrix(predictors)#
+#
+set.seed(1)#
+plsr_obj <- plsr(response ~ predictors, validation = "CV")
+plsr_obj
+plsr_model <- plsr_obj$validation$PRESS
+plsr_model
+validationplot(plsr_obj, val.type = "MSEP")

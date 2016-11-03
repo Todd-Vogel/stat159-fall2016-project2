@@ -11,20 +11,33 @@ predictors <- as.matrix(predictors)
 set.seed(1)
 plsr_obj <- plsr(response ~ predictors, validation = "CV")
 
+<<<<<<< HEAD
 ncomp_plsr <- which(plsr_obj$validation$PRESS == min(plsr_obj$validation$PRESS)) #selects comp with best model
 plsr_coef <- coef(plsr_obj)
 save(plsr_coef, file = "../../data/plsr_model.RData")
+=======
+plsr_model <- plsr_obj$validation$PRESS
+
+sink("../../plsr_model.txt")
+plsr_model
+sink()
+>>>>>>> 8e7eccc8fc79ace95846fa094020b87ee8bc8bd0
 
 png("../../images/CV_Errors_plsr.png")
 validationplot(plsr_obj, val.type = "MSEP")
 dev.off()
 
 test_data <- read.csv("../../data/test_data.csv")
+<<<<<<< HEAD
 test_response <- test_data$Balance
+=======
+test_response <- test_data$balance
+>>>>>>> 8e7eccc8fc79ace95846fa094020b87ee8bc8bd0
 test_data <- test_data[, -1]
 test_predictors <- test_data[,-12]
 test_predictors <- as.matrix(test_predictors)
 
+<<<<<<< HEAD
 test_plsr <- predict(plsr_obj, ncomp = ncomp_plsr,  newdata =test_predictors, s = "validation$PRESS", type = "response")
 
 save(test_plsr, file = "../../data/testing_plsr.RData")
@@ -33,6 +46,13 @@ source("../functions/mse_function.R")
 plsr_mse <- MSE(test_plsr, test_response)
 
 save(plsr_mse, file = "../../data/MSE_plsr.RData")
+=======
+test_plsr <- predict(plsr_obj, newx = test_predictors, s = "validation$PRESS", type = "response")
+save(test_plsr, file = "../../data/testing_plsr.RData")
+
+source("../functions/mse_function.R")
+MSE(test_plsr, test_response)
+>>>>>>> 8e7eccc8fc79ace95846fa094020b87ee8bc8bd0
 
 full_data <- read.csv("../../data/scaled_credit.csv")
 full_data <- full_data[,-1]
@@ -44,6 +64,7 @@ full_predictors <- as.matrix(full_predictors)
 
 full_plsr <- plsr(full_response ~ full_predictors, validation = "CV")
 
+<<<<<<< HEAD
 plsr_full_coef <- coef(full_plsr)
 save(plsr_coef, file = "../../data/full_coefficients_plsr.RData")
 
@@ -58,3 +79,11 @@ plsr_mse
 print("full model coefficients")
 plsr_full_coef
 sink()
+=======
+plsr_coef <- coef(full_plsr)
+save(plsr_coef, file = "../../data/full_coefficients_plsr.RData")
+
+
+
+
+>>>>>>> 8e7eccc8fc79ace95846fa094020b87ee8bc8bd0
