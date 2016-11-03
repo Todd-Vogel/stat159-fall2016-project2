@@ -1,40 +1,146 @@
 ---
 title: "Multiple Model Analysis"
 author: "Bryan Alcorn and Todd Vogel"
-output: ioslides_presentation
+output: 
+  ioslides_presentation:
+      fig_height: 7
+      fig_width: 7
 ---
 
 ## Introduction 
 
+Statistical Analysis project with the goal of comparing multiple linear models for the Balance variable in credit data.
+
+We will examing the following models to try and apply to future credit card data to estimate balance numbers.
+
+1. Ordinary Least Squared
+2. Lasso 
+3. Ridge
+4. Principal Component Regression
+5. Partial Least Squared Regression
 
 
-## R Markdown
+## Data
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+We have a data set containing variables that relate to credit. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+**4 Qualitative Variables**
+1. Gender
+2. Student
+3. Married Ethnicity 
 
-## Slide with Bullets
+**7 Quantitative Variables**
+1. Income
+2. Limit
+3. Rating
+4. Cards
+5. Age
+6. Education
+7. Balance
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+We trained ou models with a set of 300 points and tested on 100 points taken randomly from the original Credit.csv data
 
-## Slide with R Code and Output
+## Examining the Credits data
 
-```{r}
-summary(cars)
+![Scatters](../images/scatterplot_matrix.png "Scatter of Everything")
+
+## Correlation | Matrix
+
+```{r, echo=FALSE, include=FALSE}
+load(file = "../data/correlation_matrix.RData")
 ```
-
-## Slide with Plot
 
 ```{r, echo=FALSE}
-plot(cars)
+print(cor_matrix, type = "html")
 ```
 
-## Model Coefficients
+## Comparing Errors for PCR and PLSR
+
+<div class="columns-2">
+
+PCR CV Errors
+
+<img src="../images/CV_Errors_pcr.png"/>
+<div>
+
+...
+
+</div>
+
+PLSR CV ERrors
+<img src="../images/CV_Errors_plsr.png"/>
+
+</div>
+
+
+## Coefficients of the Models | Our predictors 
+
+```{r, echo = FALSE, include = FALSE}
+load('../data/MSE_ols.RData')
+load('../data/MSE_ridge.RData')
+load('../data/MSE_pcr.RData')
+load('../data/mse_lasso.RData')
+load('../data/mse_plsr.RData')
+load('../data/ols_model.RData')
+load('../data/ridge_model.RData')
+load('../data/lasso_model.RData')
+load('../data/pcr_model.RData')
+load('../data/plsr_model.RData')
+
+library(xtable)
+library(Matrix)
+options(xtable.caption.placement = 'top', xtable.comment = FALSE)
+```
+
+```{r, echo=FALSE, xtable, results='asis', include = FALSE}
+Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
+OLS <- as.vector(ols_coef)
+Ridge <- as.vector(best_model_ridge)
+Lasso <- as.vector(bestmodel_lasso)
+PCR <- as.vector(pcr_coef)
+PCR <- append(PCR, 0, 0)
+PLSR <- as.vector(plsr_coef)
+PLSR <- append(PLSR, 0, 0)
+
+Coef.frame <- data.frame(Variables, OLS, Ridge, Lasso, PCR, PLSR)
+
+Coef_table <- xtable(Coef.frame, caption="Compare - Coefficients", digits = 3)
+print(Coef_table, type="latex")
+
+```
+
+```{r, echo=FALSE, results='asis'}
+print(Coef_table, type="html")
+```
 
 ## Model MSE 
 
+```{r, echo=FALSE, results='asis'}
+MSE <- c(MSE_ols, MSE_ridge, lasso_mse, MSE_pcr, plsr_mse)
+Model <- c('OLS', 'Ridge', 'Lasso', 'PCR', 'PLSR')
+mse.frame <- data.frame(Model, MSE)
 
+MSE_table <- xtable(mse.frame, caption="Compare - MSE", digits = 3)
+print(MSE_table, type="html")
+```
+
+## Comparing Coeffecients 
+![Coefficients for all Models](../images/compare_coef.png "Mapped Indicators")
+
+**The best predictor based on having the least error is Ridge**
+
+## Takeaways:
+**Strongest Linear Relationship - Qualitative**
+1. Limit and rating seem to have a strong linear relationship
+2. Also linear are limit and income and rating and income. 
+
+**PCR vs PLSR, deciding which model is best**
+- As the nunmber of components for PCR increase the MSE decreases
+- For PLSR, however, there is a quick drop off after about 4 components, the best will be somewhere after that
+
+**Lasso vs Ridge, deciding which model is best**
+- Lambda values for these two models are best before 0 
+
+**Best Model**
+The best model is the Ridge model because it has the lowest MSE for our data
 

@@ -5,7 +5,7 @@ training_data <- training_data[,-1]
 
 #formatting response and predictors 
 response <- training_data$Balance #Balance
-response <- as.matrix(response)aa
+response <- as.matrix(response)
 predictors <- training_data[,-12]  #everythning but Balance
 predictors <- as.matrix(predictors)
 
@@ -18,7 +18,7 @@ pcr_coef <- coef(pcr_obj)
 save(pcr_coef, file = "../../data/pcr_model.RData")
 
 #Adding Histograms to Images
-png('../../images/CV_Errors_pcr.png')
+png('../../images/compare_coef.png')
 validationplot(pcr_obj, val.type = "MSEP")
 dev.off()
 

@@ -1,3 +1,4 @@
 # Conclusion
 
 With the analysis it is now clear that the Ridge regression provides the best predictive model of the Credit data. Now we can accurately apply new data to the model in order to predict an individuals credit balance.  However, this is not to say that the model could not be improved. Far more modelling techniques could have been implemented and compared to the 5 we did including deep neural network and random forest models. Still, we have effectively created a strong predictive model for the data at hand.
+

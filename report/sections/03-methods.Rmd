@@ -1,7 +1,3 @@
----
-output: pdf_document
----
-
 # Methods
 
 This project involved the use and implementation of 5 different linear models. The shrinkage and dimension-reduction modelling methods used are found in Chapter 6 of the book **Linear Model Selection and Regularization**. The traditional ordinary least squares model was found in Chapter 3 of that book.
@@ -46,3 +42,4 @@ To develop a model through PCR we used the `pcr()` function and set `validation`
 PLSR is the second and final dimension reduction modelling method used in this project. PLSR is very similar to PCR in that it looks at a subset of predictors, fits a linear model to those M variables, and determines the best dimension reduced model.  However, unlike PCR, PLSR is a supervised alternative. This means that PLSR uses the response, Y, to determine if new features are good approximations and whether they are related to response.
 
 To develop a model through PLSR we used the `plsr()` function and, like with PCR, set `validation`= CV. Again, we found the model in which PRESS was larger. Finally, we calculated MSE to determine the predictive power of our model.
+

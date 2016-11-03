@@ -1,25 +1,20 @@
----
-output: pdf_document
----
 # Results
 
 After forming the aforementioned regression models we found 12 coefficients that represent the best fit for each model. The resulting predictive function looks like:
 
 $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + \beta_5 X_5 + \beta_6 X_6 + \beta_7 X_7 + \beta_8 X_8 + \beta_9 X_9 + \beta_{10} X_{10} + \beta_{11} X_{11}$$
 
-```{r, echo = FALSE}
-setwd("/Users/toddvogel/Documents/Senior Year/stat159-fall2016-project2/report/sections")
-
-load('../../data/MSE_ols.RData')
-load('../../data/MSE_ridge.RData')
-load('../../data/MSE_pcr.RData')
-load('../../data/mse_lasso.RData')
-load('../../data/mse_plsr.RData')
-load('../../data/ols_model.RData')
-load('../../data/ridge_model.RData')
-load('../../data/lasso_model.RData')
-load('../../data/pcr_model.RData')
-load('../../data/plsr_model.RData')
+```{r, echo = FALSE, include=FALSE}
+load('../data/MSE_ols.RData')
+load('../data/MSE_ridge.RData')
+load('../data/MSE_pcr.RData')
+load('../data/mse_lasso.RData')
+load('../data/mse_plsr.RData')
+load('../data/ols_model.RData')
+load('../data/ridge_model.RData')
+load('../data/lasso_model.RData')
+load('../data/pcr_model.RData')
+load('../data/plsr_model.RData')
 
 library(xtable)
 library(Matrix)
@@ -29,11 +24,11 @@ options(xtable.caption.placement = 'top', xtable.comment = FALSE)
 ```{r, echo=FALSE, xtable, results='asis'}
 Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
 OLS <- as.vector(ols_coef)
-Ridge <- as.vector(best_model_ridge) 
-Lasso <- as.vector(bestmodel_lasso) 
-PCR <- as.vector(pcr_coef) 
+Ridge <- as.vector(best_model_ridge)
+Lasso <- as.vector(bestmodel_lasso)
+PCR <- as.vector(pcr_coef)
 PCR <- append(PCR, 0, 0)
-PLSR <- as.vector(plsr_coef) 
+PLSR <- as.vector(plsr_coef)
 PLSR <- append(PLSR, 0, 0)
 
 Coef.frame <- data.frame(Variables, OLS, Ridge, Lasso, PCR, PLSR)
@@ -43,7 +38,7 @@ print(Coef_table, type="latex")
 
 ```
 
-This table presents the fit between the prediction variables and the response variable (`Balance`) determined from the `cv.glmnet()`, `pcr()`, and `plsr()` functions, for each of our 5 models (OLS, Ridge, Lasso, PCR, PLSR). 
+This table presents the fit between the prediction variables and the response variable (`Balance`) determined from the `cv.glmnet()`, `pcr()`, and `plsr()` functions, for each of our 5 models (OLS, Ridge, Lasso, PCR, PLSR).
 
 
 After finding the 5 predictive functions, we found the MSE's for each model:
@@ -58,3 +53,8 @@ print(MSE_table, type="latex")
 ```
 
 Analysis of these numbers will reveal which model has the most predictive power.
+
+
+
+
+

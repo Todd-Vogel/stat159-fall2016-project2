@@ -2,9 +2,14 @@
 title: 'HW 2: Simple Regression Analysis'
 author: "Bryan Alcorn & Todd Vogel"
 date: "10/6/2016"
-output: pdf_document
+output:
+  pdf_document:
+    toc: true
+  html_document:
+    toc: true
 ---
 
-#Abstract
+# Abstract
 
 The following reports looks into data on credit cards across multiple qualitative and quantitative variables.  We utilize 5 types of linear modelling, including OLS, Lasso, Ridge, PLSR, and PCR to develop the most effective predictive model for credit card balance based on the existing predictors. Then, by comparing the MSE of each model between the actual and predicted response we determine the model with the most predictive power (that with the lowest MSE).  In the end, we found that one model proved to  be the best predictor of credit card balance.
+

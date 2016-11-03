@@ -47,7 +47,7 @@ Loaded lars 1.2
 > set.seed(100)
 > cross_v <- cv.glmnet(x = predictors, y = response, intercept = FALSE, standardize = FALSE, lambda = grid, alpha = 0)
 > 
-> best_model_ridge <- coef(cross_v, cross_v$lambda.min)[which(coef(cross_v, s = "lambda.min") != 0)]
+> best_model_ridge <- coef(cross_v, cross_v$lambda.min)
 > #saving coefficients of the model
 > save(best_model_ridge, file = "../../data/ridge_model.RData")
 > 
@@ -106,4 +106,4 @@ null device
 > 
 > proc.time()
    user  system elapsed 
-  2.295   0.131   2.502 
+  2.197   0.124   2.421 

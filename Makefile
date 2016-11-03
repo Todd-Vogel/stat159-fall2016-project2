@@ -13,6 +13,7 @@
 .PHONY: session
 .PHONY: clean
 .PHONY: data
+.PHONY: analysis
 
 #make a data phony
 all:
@@ -24,12 +25,14 @@ all:
 	make report
 	make session
 
+#all regression models
 regressions:
 	make ols
 	make ridge
 	make lasso
 	make pcr
 	make plsr
+	make analysis
 
 #runnings the scripts
 ols:
@@ -44,25 +47,28 @@ plsr:
 	cd code/scripts && Rscript principal_components_regression.R
 eda:
 	cd code/scripts && Rscript eda_script.R
+analysis:
+	cd code/scripts && Rscript analysis.R
 
 
 #creating the report - depends on running the regression
-report: report.pdf
-report.pdf: report.Rmd report.html
-	cd report; R -e "rmarkdown::render('report.Rmd')" #need to make sure the output for the RMD is set as PDF
+main = report.pdf
+combined = report.Rmd
+
+report: $(main)
+report.pdf: $(combined)
+	cd report; R -e "rmarkdown::render(\"report.Rmd\", \"all\")"
 report.Rmd:
-	cd report/sections && pandoc -f markdown -t markdown -o ../report.Rmd *.Rmd
-report.html: report/report.Rmd
-	cd report/sections && pandoc -f markdown -t html -o ../paper.html *.Rmd
+	cd report; cat sections/*.Rmd > $@
 
 #creating the slides
-slides: slides/presentation.html
-slides/presentation.html:
+slides:
 	cd slides && R -e "rmarkdown::render('presentation.Rmd')"
 
 #cleaning the report
 clean:
-	rm report/paper.html report/report.Rmd report/report.html report/presentation.html
+	rm report/report.*
+	rm slides/presentation.html
 	rm session-info.txt
 
 #testing
@@ -80,9 +86,3 @@ data:
 	cd code/scripts; Rscript eda_script.R
 	cd code/scripts; Rscript Data_Cleaning.R
 	cd code/scripts; Rscript data_separation.R
-
-
-
-	# 	Your Makefile should include:
-	# – declaration of variables
-	# – use of Make automatic variables
