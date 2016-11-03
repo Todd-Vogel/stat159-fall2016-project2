@@ -95,6 +95,9 @@ print(cor_matrix, type = "html")
 #### MSE Errors PLSR
 $$\includegraphics[width=250pt]{../images/CV_Errors_plsr.png}$$
 
+#### MSE Errors for PCR
+$$\includegraphics[width=250pt]{../images/CV_Errors_pcr}$$
+
 #### MSE Errors for Lasso
 $$\includegraphics[width=250pt]{../images/CV_errors_lasso.png}$$
 
@@ -102,7 +105,7 @@ $$\includegraphics[width=250pt]{../images/CV_errors_lasso.png}$$
 $$\includegraphics[width=250pt]{../images/CV_Errors_Ridge.png}$$
 
 #### Comparing all Indicators accross models
-$$\includegraphics[width=250pt]{../images/compare_coef.png}$$
+$$\includegraphics[width=700pt]{../images/compare_coef.png}$$
 
 
 #### Takeaways:
@@ -174,30 +177,7 @@ print(MSE_table, type="latex")
 
 Analysis of these numbers will reveal which model has the most predictive power.
 
-### Comparing Coefficients
 
-```{r, echo=FALSE}
-library(reshape2)
-library(ggplot2)
-
-coef_data <- data.frame(OLS, Ridge, Lasso, PCR, PLSR)
-colnames(coef_data) <- c("OLS", "Ridge", "Lasso", "PCR", "PLSR")
-row.names(coef_data) <- Variables
-coef_data <- coef_data[-1,]
-
-coef_data["Coeffecient"] <- rownames(coef_data)
-
-df.coef <- melt(coef_data, id.vars = "Coeffecient", value.name = "Indicators", variable.name = "Models")
-
-
-compare_coefficients <- ggplot(df.coef, aes( x = Models, y = Indicators) ) + 
-                        geom_bar( position = "identity", stat = "identity", alpha = .3 ) + 
-                        facet_grid(Coeffecient ~.) + 
-                        geom_text(aes(label=Indicators), position=position_dodge(width=0.9), vjust=-0.25)
-    
-compare_coefficients
-
-```
 
 
 

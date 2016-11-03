@@ -22,9 +22,13 @@
 
 	slides/
 `
-	
 
-The main directories are `code/`, `data/`, `images/`, `report/` and `slides/`.  The `code/` directory importantly contains the the eda script as well as the scripts for our 5 regression analyses (ols, ridge, lasso, plsr, and pcr). The `data/` and `images/` directories mostly stores outputs from the scripts, however `data/` also houses the Credit.csv file and the training and tests sets used throughout the project.  The `report/` folder contains the various sections of the project report to be consolidated by the Makefile.
+
+The main directories are `code/`, `data/`, `images/`, `report/` and `slides/`.  
+The `code/` directory importantly contains the the eda script as well as the scripts for our 5 regression analyses (ols, ridge, lasso, plsr, and pcr).
+The `data/` and `images/` directories mostly stores outputs from the scripts, however `data/` also houses the Credit.csv file and the training and tests sets used throughout the project.  
+The `report/` folder contains the various sections of the project report to be consolidated by the Makefile.
+The `slides/` folder contains an html file presentation summarizing the results of the project
 
 
 ### Make commands
@@ -57,6 +61,18 @@ The main directories are `code/`, `data/`, `images/`, `report/` and `slides/`.  
 
 `clean`: will delete the generated report (pdf and/or html)
 
+
+## Intructions:
+
+run `make all` to do the following:
+
+1. Get data
+2. clean the data
+3. run the models
+4. create the report
+5. create slides
+
+From running the models and looking at the coefficients, you should be able to tell from the report the results of this project
 
 
 ### License

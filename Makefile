@@ -25,6 +25,7 @@ all:
 	make report
 	make session
 
+#all regression models
 regressions:
 	make ols
 	make ridge
@@ -51,11 +52,14 @@ analysis:
 
 
 #creating the report - depends on running the regression
-report: report.pdf
-report.pdf: report.Rmd
+main = report.pdf
+combined = report.Rmd
+
+report: $(main)
+report.pdf: $(combined)
 	cd report; R -e "rmarkdown::render(\"report.Rmd\", \"all\")"
 report.Rmd:
-	cd report; cat sections/*.Rmd > report.Rmd
+	cd report; cat sections/*.Rmd > $@
 
 #creating the slides
 slides:
@@ -82,9 +86,3 @@ data:
 	cd code/scripts; Rscript eda_script.R
 	cd code/scripts; Rscript Data_Cleaning.R
 	cd code/scripts; Rscript data_separation.R
-
-
-
-	# 	Your Makefile should include:
-	# – declaration of variables
-	# – use of Make automatic variables

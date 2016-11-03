@@ -24,6 +24,9 @@ print(cor_matrix, type = "html")
 #### MSE Errors PLSR
 $$\includegraphics[width=250pt]{../images/CV_Errors_plsr.png}$$
 
+#### MSE Errors for PCR
+$$\includegraphics[width=250pt]{../images/CV_Errors_pcr}$$
+
 #### MSE Errors for Lasso
 $$\includegraphics[width=250pt]{../images/CV_errors_lasso.png}$$
 
@@ -31,7 +34,7 @@ $$\includegraphics[width=250pt]{../images/CV_errors_lasso.png}$$
 $$\includegraphics[width=250pt]{../images/CV_Errors_Ridge.png}$$
 
 #### Comparing all Indicators accross models
-$$\includegraphics[width=250pt]{../images/compare_coef.png}$$
+$$\includegraphics[width=700pt]{../images/compare_coef.png}$$
 
 
 #### Takeaways:

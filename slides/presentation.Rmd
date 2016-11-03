@@ -129,3 +129,18 @@ print(MSE_table, type="html")
 
 **The best predictor based on having the least error is Ridge**
 
+## Takeaways:
+**Strongest Linear Relationship - Qualitative**
+1. Limit and rating seem to have a strong linear relationship
+2. Also linear are limit and income and rating and income. 
+
+**PCR vs PLSR, deciding which model is best**
+- As the nunmber of components for PCR increase the MSE decreases
+- For PLSR, however, there is a quick drop off after about 4 components, the best will be somewhere after that
+
+**Lasso vs Ridge, deciding which model is best**
+- Lambda values for these two models are best before 0 
+
+**Best Model**
+The best model is the Ridge model because it has the lowest MSE for our data
+
