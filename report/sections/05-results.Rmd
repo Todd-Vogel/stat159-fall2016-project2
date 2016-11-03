@@ -5,18 +5,16 @@ After forming the aforementioned regression models we found 12 coefficients that
 $$Y = \beta_) + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + \beta_5 X_5 + \beta_6 X_6 + \beta_7 X_7 + \beta_8 X_8 + \beta_9 X_9 + \beta_{10} X_{10} + \beta_{11} X_{11} + \beta_{12} X_{12}$$
 
 ```{r, echo = FALSE}
-setwd("/Users/toddvogel/Documents/Senior Year/stat159-fall2016-project2/report/sections")
-
-load('../../data/MSE_ols.RData')
-load('../../data/MSE_ridge.RData')
-load('../../data/MSE_pcr.RData')
-load('../../data/mse_lasso.RData')
-load('../../data/mse_plsr.RData')
-load('../../data/ols_model.RData')
-load('../../data/ridge_model.RData')
-load('../../data/lasso_model.RData')
-load('../../data/pcr_model.RData')
-load('../../data/plsr_model.RData')
+load('../data/MSE_ols.RData')
+load('../data/MSE_ridge.RData')
+load('../data/MSE_pcr.RData')
+load('../data/mse_lasso.RData')
+load('../data/mse_plsr.RData')
+load('../data/ols_model.RData')
+load('../data/ridge_model.RData')
+load('../data/lasso_model.RData')
+load('../data/pcr_model.RData')
+load('../data/plsr_model.RData')
 
 library(xtable)
 library(Matrix)
@@ -55,3 +53,6 @@ print(MSE_table, type="latex")
 ```
 
 Analysis of these numbers will reveal which model has the most predictive power.
+
+
+

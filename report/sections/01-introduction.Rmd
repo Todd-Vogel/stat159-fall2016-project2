@@ -1,3 +1,6 @@
+
 # Introduction 
 
 This project looks to determine the individual effects (coefficients) of credit predictors on the response variable, balance. By focusing on these attributes and applying various models we can determine the relationships between variables amd, thus, effectively predict the response.  We will apply 4 linear models (Lasso, Ridge, PLSR, and PCR) and see how they compare to OLS (simple linear regression).  If the models prove to be effective they can be applied to future credit card data to estimate balance numbers.
+
+

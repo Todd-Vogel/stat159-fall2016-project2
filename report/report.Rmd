@@ -1,40 +1,129 @@
-Abstract
-========
+---
+title: 'HW 2: Simple Regression Analysis'
+author: "Bryan Alcorn & Todd Vogel"
+date: "10/6/2016"
+output:
+  pdf_document:
+    toc: true
+  html_document:
+    toc: true
+---
 
-The following reports looks into data on credit cards across multiple
-qualitative and quantitative variables. We utilize 5 types of linear
-modelling, including OLS, Lasso, Ridge, PLSR, and PCR to develop the
-most effective predictive model for credit card balance based on the
-existing predictors. Then, by comparing the MSE of each model between
-the actual and predicted response we determine the model with the most
-predictive power (that with the lowest MSE). In the end, we found that
-one model proved to be the best predictor of credit card balance. \#
-Introduction
+# Abstract
 
-This project looks to determine the individual effects (coefficients) of
-credit predictors on the response variable, balance. By focusing on
-these attributes and applying various models we can determine the
-relationships between variables amd, thus, effectively predict the
-response. We will apply 4 linear models (Lasso, Ridge, PLSR, and PCR)
-and see how they compare to OLS (simple linear regression). If the
-models prove to be effective they can be applied to future credit card
-data to estimate balance numbers.
+The following reports looks into data on credit cards across multiple qualitative and quantitative variables.  We utilize 5 types of linear modelling, including OLS, Lasso, Ridge, PLSR, and PCR to develop the most effective predictive model for credit card balance based on the existing predictors. Then, by comparing the MSE of each model between the actual and predicted response we determine the model with the most predictive power (that with the lowest MSE).  In the end, we found that one model proved to  be the best predictor of credit card balance.
 
-Data
-====
 
-The data utilized in this project is exclusively a Credit dataset with
-11 variables. Of these 11 variables 4 are qualitative (`Gender`,
-`Student`, `Married`, and `Ethnicity`) and 7 and quantitative (`Income`,
-`Limit`, `Rating`, `Cards`, `Age`, `Education`, and `Balance`). The
-response variable here is `Balance` (dependent) and the rest are
-predictors. Each data point, or row, represents and individual consumer
-(of which there are 400). However, the data was trained on a training
-data set of 300 points and tested on a test data set of 100 points taken
-randomly from the original Credit.csv dataframe. To make the data more
-usable the qualitative variables were converted into indicator values
-and then each variable was mean centered and standardized so they would
-have comparable scales.
+# Introduction 
 
-The many of the modelling methods used are found in Chapter 6 of the
-book **Linear Model Selection and Regularization**.
+This project looks to determine the individual effects (coefficients) of credit predictors on the response variable, balance. By focusing on these attributes and applying various models we can determine the relationships between variables amd, thus, effectively predict the response.  We will apply 4 linear models (Lasso, Ridge, PLSR, and PCR) and see how they compare to OLS (simple linear regression).  If the models prove to be effective they can be applied to future credit card data to estimate balance numbers.
+
+
+# Data
+
+The data utilized in this project is exclusively a Credit dataset with 11 variables.  Of these 11 variables 4 are qualitative (`Gender`, `Student`, `Married`, and `Ethnicity`) and 7 and quantitative (`Income`, `Limit`, `Rating`, `Cards`, `Age`, `Education`, and `Balance`). The response variable here is `Balance` (dependent) and the rest are predictors. Each data point, or row, represents and individual consumer (of which there are 400). However, the data was trained on a training data set of 300 points and tested on a test data set of 100 points taken randomly from the original Credit.csv dataframe. To make the data more usable the qualitative variables were converted into indicator values and then each variable was mean centered and standardized so they would have comparable scales.
+
+
+# Methods
+
+This project involved the use and implementation of 5 different linear models. The shrinkage and dimension-reduction modelling methods used are found in Chapter 6 of the book **Linear Model Selection and Regularization**. The traditional ordinary least squares model was found in Chapter 3 of that book.
+
+##Ordinary Least Squares
+
+Here we determined the basic linear relationship between variables (`Balance` is response, and all others are predictors). In order to find these relationships we had to fit the variables to the following model:
+
+$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_n X_n + \epsilon$$
+
+To do so we utilized the `lm()` function to solve for the coefficient values  $\beta_0$, $\beta_1$, $\beta_2$, to $\beta_n$. Now, once we had determined a model for the training data, we applied it to the test data to determine a predicted response. From there we calculated the mean squared error (a measure of predicted power), by using the function:
+
+$$MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i - y_{di})^2$$
+
+This subtracts each predicted response from the actual response and squares it then sums up each of the points and takes the average.
+
+## Ridge Regression
+
+Ridge Regression is the first of the two shrinkage modelling methods we used.  When using shrinkage methods the goal is to penalize certain parameters that should have a less significant effect on the model. To do so we use the tuning parameter, $\lambda$, times $\sum_{j=1}^{p}\beta_{j}^{2}$ to yeild the shrinkage penalty. We then determine the coefficients that minimize the following equation:
+
+$$\sum_{i=1}^{n}(y_i-\beta_0-\sum_{j=1}^{p}\beta_jx_{ij}) + \lambda\sum_{j=1}^{p}\beta_{j}^{2}$$
+
+To find these coefficients we used the function `cv.glmnet()` to determine through cross validation which $\lambda$ value minimizes the above function (when $\lambda$ was a given sequence of numbers under `grid`, and `alpha` was set to 0). After the coefficients were calculated we again calculated the MSE to determine the predictive power of our model.
+
+## Lasso Regression
+
+Lasso regression is the second and final shrinkage modelling method used in this project. Although it is very similar to ridge regression there are a few key differences: the shrinkage penalty is now $\lambda$, times $\sum_{j=1}^{p}\beta_{j}^{2}$ ($\beta$ is not squared), and lasso allows for the removal of certain variables (not just dampening their effect). To determine the coefficients we must look for the $\beta$s that minimize:
+
+$$\sum_{i=1}^{n}(y_i-\beta_0-\sum_{j=1}^{p}\beta_jx_{ij}) + \lambda\sum_{j=1}^{p}|\beta_{j}|$$
+
+Again, to find the coefficient we used `cv.glmnet()` and set $\lambda$ to `grid`. However, now, `alpha` was set to 1. Finally, we calculated MSE to determine the predictive power of our model.
+
+## Principle Components Regression
+
+PCR is the first of two dimension reduction modelling methods we used.  This method labors under the assumption that a subset of all of the predictor variables account for the vast majority of the variance.  These more significant variables are referred to as principle components (M).  PCR works by setting M equal to some reduced number of variables and running cross validation on, the model with the lowest cross validation error is selected.
+
+To develop a model through PCR we used the `pcr()` function and set `validation`= CV.  We then found the model in which PRESS was larger to avoid overfitting. Finally, we calculated MSE to determine the predictive power of our model.
+
+## Partial Least Squares Regression
+
+
+PLSR is the second and final dimension reduction modelling method used in this project. PLSR is very similar to PCR in that it looks at a subset of predictors, fits a linear model to those M variables, and determines the best dimension reduced model.  However, unlike PCR, PLSR is a supervised alternative. This means that PLSR uses the response, Y, to determine if new features are good approximations and whether they are related to response.
+
+To develop a model through PLSR we used the `plsr()` function and, like with PCR, set `validation`= CV. Again, we found the model in which PRESS was larger. Finally, we calculated MSE to determine the predictive power of our model.
+
+# Results
+
+After forming the aforementioned regression models we found 12 coefficients that represent the best fit for each model. The resulting predictive function looks like:
+
+$$Y = \beta_) + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + \beta_5 X_5 + \beta_6 X_6 + \beta_7 X_7 + \beta_8 X_8 + \beta_9 X_9 + \beta_{10} X_{10} + \beta_{11} X_{11} + \beta_{12} X_{12}$$
+
+```{r, echo = FALSE}
+load('../data/MSE_ols.RData')
+load('../data/MSE_ridge.RData')
+load('../data/MSE_pcr.RData')
+load('../data/mse_lasso.RData')
+load('../data/mse_plsr.RData')
+load('../data/ols_model.RData')
+load('../data/ridge_model.RData')
+load('../data/lasso_model.RData')
+load('../data/pcr_model.RData')
+load('../data/plsr_model.RData')
+
+library(xtable)
+library(Matrix)
+options(xtable.caption.placement = 'top', xtable.comment = FALSE)
+```
+
+```{r, echo=FALSE, xtable, results='asis'}
+Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
+OLS <- as.vector(ols_coef)
+Ridge <- as.vector(best_model_ridge) 
+Lasso <- as.vector(bestmodel_lasso) 
+PCR <- as.vector(pcr_coef) 
+PCR <- append(PCR, 0, 0)
+PLSR <- as.vector(plsr_coef) 
+PLSR <- append(PLSR, 0, 0)
+
+Coef.frame <- data.frame(Variables, OLS, Ridge, Lasso, PCR, PLSR)
+
+Coef_table <- xtable(Coef.frame, caption="Information about Model Coefficients", digits = 3)
+print(Coef_table, type="latex")
+
+```
+
+This table presents the fit between the prediction variables and the response variable (`Balance`) determined from the `cv.glmnet()`, `pcr()`, and `plsr()` functions, for each of our 5 models (OLS, Ridge, Lasso, PCR, PLSR). 
+
+
+After finding the 5 predictive functions, we found the MSE's for each model:
+
+```{r, echo=FALSE, results='asis'}
+MSE <- c(MSE_ols, MSE_ridge, lasso_mse, MSE_pcr, plsr_mse)
+Model <- c('OLS', 'Ridge', 'Lasso', 'PCR', 'PLSR')
+mse.frame <- data.frame(Model, MSE)
+
+MSE_table <- xtable(mse.frame, caption="Information about Mean Squared Errors", digits = 3)
+print(MSE_table, type="latex")
+```
+
+Analysis of these numbers will reveal which model has the most predictive power.
+
+
+

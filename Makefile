@@ -47,13 +47,11 @@ eda:
 
 
 #creating the report - depends on running the regression
-report: report.pdf
-report.pdf: report.Rmd report.html
-	cd report; R -e "rmarkdown::render('report.Rmd')" #need to make sure the output for the RMD is set as PDF
+report: report.pdf report.html
+report.pdf: report.Rmd
+	cd report; R -e "library(rmarkdown):render(\"report.Rmd\", \"all\")"
 report.Rmd:
-	cd report/sections && pandoc -f markdown -t markdown -o ../report.Rmd *.Rmd
-report.html: report/report.Rmd
-	cd report/sections && pandoc -f markdown -t html -o ../paper.html *.Rmd
+	cd report; cat sections/*.Rmd > report.Rmd
 
 #creating the slides
 slides: slides/presentation.html
@@ -62,7 +60,8 @@ slides/presentation.html:
 
 #cleaning the report
 clean:
-	rm report/paper.html report/report.Rmd report/report.html report/presentation.html
+	rm report/report.*
+	rm slides/presentation.html
 	rm session-info.txt
 
 #testing

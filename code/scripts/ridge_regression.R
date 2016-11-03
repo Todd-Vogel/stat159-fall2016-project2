@@ -17,7 +17,7 @@ grid <- 10^seq(10, -2, length = 100)
 set.seed(100)
 cross_v <- cv.glmnet(x = predictors, y = response, intercept = FALSE, standardize = FALSE, lambda = grid, alpha = 0)
 
-best_model_ridge <- coef(cross_v, cross_v$lambda.min)[which(coef(cross_v, s = "lambda.min") != 0)]
+best_model_ridge <- coef(cross_v, cross_v$lambda.min)git 
 #saving coefficients of the model
 save(best_model_ridge, file = "../../data/ridge_model.RData")
 
