@@ -5,7 +5,7 @@ training_data <- training_data[,-1]
 
 #formatting response and predictors 
 response <- training_data$Balance #Balance
-response <- as.matrix(response)
+response <- as.matrix(response)aa
 predictors <- training_data[,-12]  #everythning but Balance
 predictors <- as.matrix(predictors)
 
@@ -13,9 +13,9 @@ predictors <- as.matrix(predictors)
 set.seed(100)
 pcr_obj <- pcr(response ~ predictors, validation = "CV")
 
-pcr_model <- pcr_obj$validation$PRESS
+ncomp_pcr <- which(pcr_obj$validation$PRESS == min(pcr_obj$validation$PRESS)) #selects components with best model
 pcr_coef <- coef(pcr_obj)
-save(pcr_model, pcr_coef, file = "../../data/pcr_model.RData")
+save(pcr_coef, file = "../../data/pcr_model.RData")
 
 #Adding Histograms to Images
 png('../../images/CV_Errors_pcr.png')
@@ -29,7 +29,7 @@ test_set <- test_set[,-1]
 test_set <- test_set[,-12]
 test_predictors = as.matrix(test_set)
 
-test_pcr <- predict(pcr_obj, ncomp = 1, newdata = test_predictors, s = "validation$PRESS", type="response")
+test_pcr <- predict(pcr_obj, ncomp = ncomp_pcr, newdata = test_predictors, s = "validation$PRESS", type="response")
 save(test_pcr,file =  "../../data/testing_pcr.RData")
 
 
@@ -50,7 +50,7 @@ full_pcr = pcr(response ~ predictors, validation = "CV")
 
 #getting coefficients and saving
 pcr_full_coef <- coef(full_pcr)
-save(pcr_coef, file = "../../data/full_coeffecients_pcr.RData")
+save(pcr_full_coef, file = "../../data/full_coeffecients_pcr.RData")
 
 #saving  the important stuff
 sink(file = "../../data/pcr_model.txt")
