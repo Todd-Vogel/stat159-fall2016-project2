@@ -4,7 +4,7 @@
 ### File Structure
 
 `
-	`code/`
+	code/
 
 		functions/
 
