@@ -50,18 +50,18 @@ coef_data <- coef_data[-1,]
 
 coef_data["Coeffecient"] <- rownames(coef_data)
 
-df.coef <- melt(coef_data, id.vars = "Coeffecient", value.name = "Indicators", variable.name = "Models")
+df.coef <- melt(coef_data, id.vars = "Coeffecient", value.name = "Coef", variable.name = "Models")
 
-df.coef$Indicators = round(df.coef$Indicators, digits = 3)
+df.coef$Coef = round(df.coef$Coef, digits = 3)
 
 
-compare_coefficients <- ggplot(df.coef, aes( x = Coeffecient, y = Indicators) ) +
+compare_coefficients <- ggplot(df.coef, aes( x = Coeffecient, y = Coef) ) +
                         geom_bar( position = "identity", stat = "identity", alpha = .3, width = .3 ) +
                         facet_grid(Models ~.) +
                         theme(panel.margin = unit(0, "lines")) + 
-                        geom_text(aes(label=Indicators), position=position_dodge(width=0.9), vjust=0) + 
+                        geom_text(aes(label=Coef), position=position_dodge(width=0.9), vjust=0) + 
                         scale_fill_brewer(palette="Blues") + 
-                        labs(title = "Comparingn all Coeffecients for all the Models") + 
+                        labs(title = "Comparing all Coeffecients for all the Models") + 
                         theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
 
 

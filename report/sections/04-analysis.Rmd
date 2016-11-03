@@ -25,7 +25,7 @@ print(cor_matrix, type = "html")
 $$\includegraphics[width=250pt]{../images/CV_Errors_plsr.png}$$
 
 #### MSE Errors for PCR
-$$\includegraphics[width=250pt]{../images/CV_Errors_pcr}$$
+$$\includegraphics[width=250pt]{../images/CV_Errors_pcr.png}$$
 
 #### MSE Errors for Lasso
 $$\includegraphics[width=250pt]{../images/CV_errors_lasso.png}$$

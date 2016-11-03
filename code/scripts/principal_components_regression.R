@@ -18,7 +18,7 @@ pcr_coef <- coef(pcr_obj)
 save(pcr_coef, file = "../../data/pcr_model.RData")
 
 #Adding Histograms to Images
-png('../../images/compare_coef.png')
+png('../../images/CV_Errors_pcr.png')
 validationplot(pcr_obj, val.type = "MSEP")
 dev.off()
 
