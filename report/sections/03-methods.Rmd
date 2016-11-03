@@ -1,3 +1,7 @@
+---
+output: pdf_document
+---
+
 # Methods
 
 This project involved the use and implementation of 5 different linear models. The shrinkage and dimension-reduction modelling methods used are found in Chapter 6 of the book **Linear Model Selection and Regularization**. The traditional ordinary least squares model was found in Chapter 3 of that book.
