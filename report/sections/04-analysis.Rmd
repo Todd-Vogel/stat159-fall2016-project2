@@ -1,0 +1,3 @@
+# Analysis
+
+In the Results section of the report, we determined the mean squared error values for each of our 5 models.  For OLS, Ridge, Lasso, PCR, and PLSR the MSE's were 0.047, 0.045, 0.047, 0.415, and 0.308 respectively. Because our data was mean centered and standardized, all of these values exist on the same scale and can thus be prepared.  Mean squared error values represent the average sum of the errors between actual and predicted response values. Therefore, the smaller the MSE value the smaller the error, and the better the predictive model.  Given this, 0.045 is our smallest MSE value meaning Ridge is our best predictive model.
