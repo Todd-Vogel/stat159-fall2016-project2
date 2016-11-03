@@ -13,6 +13,7 @@
 .PHONY: session
 .PHONY: clean
 .PHONY: data
+.PHONY: analysis
 
 #make a data phony
 all:
@@ -30,6 +31,7 @@ regressions:
 	make lasso
 	make pcr
 	make plsr
+	make analysis
 
 #runnings the scripts
 ols:
@@ -44,18 +46,19 @@ plsr:
 	cd code/scripts && Rscript principal_components_regression.R
 eda:
 	cd code/scripts && Rscript eda_script.R
+analysis:
+	cd code/scripts && Rscript analysis.R
 
 
 #creating the report - depends on running the regression
-report: report.pdf report.html
+report: report.pdf
 report.pdf: report.Rmd
-	cd report; R -e "library(rmarkdown):render(\"report.Rmd\", \"all\")"
+	cd report; R -e "rmarkdown::render(\"report.Rmd\", \"all\")"
 report.Rmd:
 	cd report; cat sections/*.Rmd > report.Rmd
 
 #creating the slides
-slides: slides/presentation.html
-slides/presentation.html:
+slides:
 	cd slides && R -e "rmarkdown::render('presentation.Rmd')"
 
 #cleaning the report

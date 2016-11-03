@@ -1,7 +1,10 @@
 ---
 title: "Multiple Model Analysis"
 author: "Bryan Alcorn and Todd Vogel"
-output: ioslides_presentation
+output: 
+  ioslides_presentation:
+      fig_height: 7
+      fig_width: 7
 ---
 
 ## Introduction 
@@ -37,9 +40,42 @@ We have a data set containing variables that relate to credit.
 
 We trained ou models with a set of 300 points and tested on 100 points taken randomly from the original Credit.csv data
 
-## Analysis 
+## Examining the Credits data
 
-```{r, echo = FALSE}
+![Scatters](../images/scatterplot_matrix.png "Scatter of Everything")
+
+## Correlation | Matrix
+
+```{r, echo=FALSE, include=FALSE}
+load(file = "../data/correlation_matrix.RData")
+```
+
+```{r, echo=FALSE}
+print(cor_matrix, type = "html")
+```
+
+## Comparing Errors for PCR and PLSR
+
+<div class="columns-2">
+
+PCR CV Errors
+
+<img src="../images/CV_Errors_pcr.png"/>
+<div>
+
+...
+
+</div>
+
+PLSR CV ERrors
+<img src="../images/CV_Errors_plsr.png"/>
+
+</div>
+
+
+## Coefficients of the Models | Our predictors 
+
+```{r, echo = FALSE, include = FALSE}
 load('../data/MSE_ols.RData')
 load('../data/MSE_ridge.RData')
 load('../data/MSE_pcr.RData')
@@ -56,7 +92,7 @@ library(Matrix)
 options(xtable.caption.placement = 'top', xtable.comment = FALSE)
 ```
 
-```{r, echo=FALSE, xtable, results='asis'}
+```{r, echo=FALSE, xtable, results='asis', include = FALSE}
 Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
 OLS <- as.vector(ols_coef)
 Ridge <- as.vector(best_model_ridge)
@@ -68,44 +104,28 @@ PLSR <- append(PLSR, 0, 0)
 
 Coef.frame <- data.frame(Variables, OLS, Ridge, Lasso, PCR, PLSR)
 
-Coef_table <- xtable(Coef.frame, caption="Information about Model Coefficients", digits = 3)
+Coef_table <- xtable(Coef.frame, caption="Compare - Coefficients", digits = 3)
 print(Coef_table, type="latex")
 
 ```
 
-```{r}
-Coef_table <- xtable(Coef.frame, caption="Information about Model Coefficients", digits = 3)
-print(Coef_table, type="latex")
+```{r, echo=FALSE, results='asis'}
+print(Coef_table, type="html")
 ```
-
-
-## R Markdown
-
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Code and Output
-
-```{r}
-summary(cars)
-```
-
-## Slide with Plot
-
-```{r, echo=FALSE}
-plot(cars)
-```
-
-## Model Coefficients
 
 ## Model MSE 
 
+```{r, echo=FALSE, results='asis'}
+MSE <- c(MSE_ols, MSE_ridge, lasso_mse, MSE_pcr, plsr_mse)
+Model <- c('OLS', 'Ridge', 'Lasso', 'PCR', 'PLSR')
+mse.frame <- data.frame(Model, MSE)
 
+MSE_table <- xtable(mse.frame, caption="Compare - MSE", digits = 3)
+print(MSE_table, type="html")
+```
+
+## Comparing Coeffecients 
+![Coefficients for all Models](../images/compare_coef.png "Mapped Indicators")
+
+**The best predictor based on having the least error is Ridge**
 

@@ -4,7 +4,7 @@ After forming the aforementioned regression models we found 12 coefficients that
 
 $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + \beta_5 X_5 + \beta_6 X_6 + \beta_7 X_7 + \beta_8 X_8 + \beta_9 X_9 + \beta_{10} X_{10} + \beta_{11} X_{11}$$
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, include=FALSE}
 load('../data/MSE_ols.RData')
 load('../data/MSE_ridge.RData')
 load('../data/MSE_pcr.RData')
@@ -53,5 +53,31 @@ print(MSE_table, type="latex")
 ```
 
 Analysis of these numbers will reveal which model has the most predictive power.
+
+### Comparing Coefficients
+
+```{r, echo=FALSE}
+library(reshape2)
+library(ggplot2)
+
+coef_data <- data.frame(OLS, Ridge, Lasso, PCR, PLSR)
+colnames(coef_data) <- c("OLS", "Ridge", "Lasso", "PCR", "PLSR")
+row.names(coef_data) <- Variables
+coef_data <- coef_data[-1,]
+
+coef_data["Coeffecient"] <- rownames(coef_data)
+
+df.coef <- melt(coef_data, id.vars = "Coeffecient", value.name = "Indicators", variable.name = "Models")
+
+
+compare_coefficients <- ggplot(df.coef, aes( x = Models, y = Indicators) ) + 
+                        geom_bar( position = "identity", stat = "identity", alpha = .3 ) + 
+                        facet_grid(Coeffecient ~.) + 
+                        geom_text(aes(label=Indicators), position=position_dodge(width=0.9), vjust=-0.25)
+    
+compare_coefficients
+
+```
+
 
 

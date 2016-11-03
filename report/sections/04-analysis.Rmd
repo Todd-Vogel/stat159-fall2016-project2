@@ -2,3 +2,48 @@
 
 In the Results section of the report, we determined the mean squared error values for each of our 5 models.  For OLS, Ridge, Lasso, PCR, and PLSR the MSE's were 0.047, 0.045, 0.047, 0.415, and 0.308 respectively. Because our data was mean centered and standardized, all of these values exist on the same scale and can thus be prepared.  Mean squared error values represent the average sum of the errors between actual and predicted response values. Therefore, the smaller the MSE value the smaller the error, and the better the predictive model.  Given this, 0.045 is our smallest MSE value meaning Ridge is our best predictive model.
 
+
+Lets take a look at some of the results of our analysis and see what some of the data looks like 
+
+#### Scatterplot between all the variables
+
+#### Scatterplot Matrix
+$$\includegraphics[width=250pt]{../images/scatterplot_matrix.png}$$
+
+## Correlation | Matrix
+
+```{r, echo=FALSE, include=FALSE}
+load(file = "../data/correlation_matrix.RData")
+```
+
+```{r, echo=FALSE}
+print(cor_matrix, type = "html")
+```
+
+
+#### MSE Errors PLSR
+$$\includegraphics[width=250pt]{../images/CV_Errors_plsr.png}$$
+
+#### MSE Errors for Lasso
+$$\includegraphics[width=250pt]{../images/CV_errors_lasso.png}$$
+
+#### MSE Errors for Ridge
+$$\includegraphics[width=250pt]{../images/CV_Errors_Ridge.png}$$
+
+#### Comparing all Indicators accross models
+$$\includegraphics[width=250pt]{../images/compare_coef.png}$$
+
+
+#### Takeaways:
+**Strongest Predictors**
+1. Limit and rating seem to have a strong linear relationship
+2. Also linear are limit and income and rating and income. 
+
+**PCR vs PLSR, deciding which model is best**
+* As the nunmber of components for PCR increase the MSE decreases
+* For PLSR, however, there is a quick drop off after about 4 components, the best will be somewhere after that
+
+**Lasso vs Ridge, deciding which model is best**
+* Lambda values for these two models are best before 0 
+
+
