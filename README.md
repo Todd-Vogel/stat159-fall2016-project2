@@ -3,8 +3,8 @@
 
 ### File Structure
 
-`
-	`code/`
+```
+	code/
 
 		functions/
 
@@ -21,7 +21,7 @@
 		sections/
 
 	slides/
-`
+```
 
 
 The main directories are `code/`, `data/`, `images/`, `report/` and `slides/`.  
